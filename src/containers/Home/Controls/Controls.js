@@ -1,0 +1,33 @@
+import React, { Component } from "react";
+import Toggle from "../../../components/UI/Toggle";
+import { connect } from "react-redux";
+import * as gridActions from "../../../store/grid/actions";
+import * as gridSelectors from "../../../store/grid/selectors";
+
+class Controls extends Component {
+  render() {
+    return (
+      <div>
+        <Toggle
+          name="Featured"
+          selected={this.props.showFeatured}
+          onChange={this.props.updateShowFeatured}
+        />
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    showFeatured: gridSelectors.getShowFeatured(state),
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateShowFeatured: (value) => dispatch(gridActions.showFeatured(value)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Controls);

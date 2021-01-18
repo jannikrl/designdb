@@ -1,0 +1,1 @@
+export const SHOW_FEATURED = "SHOW_FEATURED";

@@ -1,0 +1,13 @@
+.grid-item {
+    width: 180px;
+    height: 180px;
+    border: 2px solid #eee;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-item img {
+    width: 80%;
+}
