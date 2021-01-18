@@ -1,8 +1,12 @@
-import egg from "../../assets/egg.jpg";
-import teddy from "../../assets/teddy.jpg";
-import swan from "../../assets/swan.png";
+/**
+ * @TODO: Use API
+ */
 
-const data = [
+import egg from "../assets/egg.jpg";
+import teddy from "../assets/teddy.jpg";
+import swan from "../assets/swan.png";
+
+const designList = [
   {
     image: egg,
     id: "egg",
@@ -32,15 +36,7 @@ const data = [
   },
 ];
 
-const initialState = {
-  designs: data,
-};
-
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
-
-export default reducer;
+export const getDesigns = (filterOptions) => {
+    const showFeatured = filterOptions.showFeatured;
+    return designList.filter((design) => (showFeatured) ? design.featured === showFeatured : true);
+}

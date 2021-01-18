@@ -1,15 +1,18 @@
 import React, { Component } from "react";
 import Controls from "./Controls/Controls";
 import Grid from "../../components/Grid/Grid";
-import * as gridSelectors from "../../store/grid/selectors";
-import { connect } from "react-redux";
-
+import { connect } from "react-redux";
+import * as actions from "../../store/grid/actions";
 
 class Designs extends Component {
+  componentDidMount() {
+      this.props.fetchDesigns();
+  }
+
   render() {
     return (
       <div>
-        <Controls showFeatured={this.showFeatured} />
+        <Controls />
         <Grid data={this.props.designs} />
       </div>
     );
@@ -17,9 +20,15 @@ class Designs extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        designs: gridSelectors.getDesigns(state),
-    }
-}
+  return {
+    designs: state.grid.designs,
+  };
+};
 
-export default connect(mapStateToProps)(Designs);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchDesigns: () => dispatch(actions.fetchDesigns()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Designs);
