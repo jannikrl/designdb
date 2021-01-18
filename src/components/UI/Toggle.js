@@ -2,7 +2,7 @@ import React from "react";
 
 const Toggle = (props) => {
   return (
-    <div>
+    <React.Fragment>
       <input
         type="checkbox"
         onChange={(event) => props.onChange(event.target.checked)}
@@ -11,7 +11,7 @@ const Toggle = (props) => {
         name={props.name}
       />
       <label htmlFor={props.name}>{props.name}</label>
-    </div>
+    </React.Fragment>
   );
 };
 

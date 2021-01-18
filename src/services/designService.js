@@ -6,7 +6,7 @@ import egg from "../assets/egg.jpg";
 import teddy from "../assets/teddy.jpg";
 import swan from "../assets/swan.png";
 
-const designList = [
+const data = [
   {
     image: egg,
     id: "egg",
@@ -37,6 +37,18 @@ const designList = [
 ];
 
 export const getDesigns = (filterOptions) => {
-    const showFeatured = filterOptions.showFeatured;
-    return designList.filter((design) => (showFeatured) ? design.featured === showFeatured : true);
-}
+  const showFeatured = filterOptions.showFeatured;
+  const selectedDesigner = filterOptions.selectedDesigner;
+
+    console.log(selectedDesigner);
+
+  let designList = data;
+  designList = showFeatured
+    ? designList.filter((design) => design.featured)
+    : designList;
+  designList = selectedDesigner.length
+    ? designList.filter((design) => design.designer.id === selectedDesigner)
+    : designList;
+
+  return designList;
+};

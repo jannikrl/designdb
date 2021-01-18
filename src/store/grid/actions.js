@@ -14,6 +14,18 @@ export const showFeatured = (value) => {
   };
 };
 
+export const selectDesigner = (id) => {
+    const action = {
+        type: actionTypes.SELECT_DESIGNER,
+        id : id,
+    }
+
+    return (dispatch) => {
+        dispatch(action);
+        dispatch(fetchDesigns());
+    }
+}
+
 export const fetchDesigns = () => {
   return (dispatch, getState) => {
     const state = getState();
