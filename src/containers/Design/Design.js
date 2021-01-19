@@ -1,10 +1,34 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import * as designActions from '../../store/design/actions';
 
 class Design extends Component {
-    render() {
-        return (<div><p>Show design {this.props.match.params.id}</p></div>);
-    }
+  componentDidMount() {
+    const designId = this.props.match.params.id
+    this.props.fetchDesign(designId);
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>{this.props.design && this.props.design.name}</h1>
+        <img src={this.props.design && this.props.design.image} />
+      </div>
+    );
+  }
 }
 
-export default withRouter(Design);
+const mapStateToProps = (state) => {
+  return {
+    design: state.design.design,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchDesign: (id) => dispatch(designActions.fetchDesign(id)),
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Design));

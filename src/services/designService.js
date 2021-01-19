@@ -8,8 +8,9 @@ import swan from "../assets/swan.png";
 
 const data = [
   {
-    image: egg,
     id: "egg",
+    name: "Egg",
+    image: egg,
     designer: {
       id: "1",
       name: "Arne Jakobsen",
@@ -17,8 +18,9 @@ const data = [
     featured: true,
   },
   {
-    image: swan,
     id: "swan",
+    name: "Swan",
+    image: swan,
     designer: {
       id: "1",
       name: "Arne Jakobsen",
@@ -26,8 +28,9 @@ const data = [
     featured: false,
   },
   {
-    image: teddy,
     id: "teddy",
+    name: "The Papa Bear Chair",
+    image: teddy,
     designer: {
       id: "2",
       name: "Hans Wegner",
@@ -40,7 +43,7 @@ export const getDesigns = (filterOptions) => {
   const showFeatured = filterOptions.showFeatured;
   const selectedDesigner = filterOptions.selectedDesigner;
 
-    console.log(selectedDesigner);
+  console.log(selectedDesigner);
 
   let designList = data;
   designList = showFeatured
@@ -51,4 +54,8 @@ export const getDesigns = (filterOptions) => {
     : designList;
 
   return designList;
+};
+
+export const getDesign = (id) => {
+  return data.find((design) => design.id === id);
 };
