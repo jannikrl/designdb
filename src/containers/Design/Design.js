@@ -10,10 +10,13 @@ class Design extends Component {
   }
 
   render() {
+    const name = this.props.design && this.props.design.name;
+    const src = this.props.design && this.props.design.image;
+
     return (
       <div>
-        <h1>{this.props.design && this.props.design.name}</h1>
-        <img src={this.props.design && this.props.design.image} />
+        <h1>{name}</h1>
+        <img src={src} alt={name} />
       </div>
     );
   }

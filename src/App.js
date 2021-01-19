@@ -1,24 +1,44 @@
-import React from "react";
-import "./App.css";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+
 import Home from "./containers/Home/Home";
 import Design from "./containers/Design/Design";
+import Auth from "./containers/Auth/Auth";
+import Logout from "./containers/Auth/Logout/Logout";
 import Header from "./components/Header/Header";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import * as authSelectors from "./store/auth/selectors";
+import "./App.css";
 
-function App() {
-  return (
-    <Router>
-      <Header />
-      <Switch>
-        <Route path="/d/:id">
-          <Design />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Router>
+        <Header isAuthenticated={this.props.isAuthenticated} />
+        <Switch>
+          <Route path="/d/:id">
+            <Design />
+          </Route>
+          <Route path="/auth">
+            <Auth />
+          </Route>
+          <Route path="/logout">
+            <Logout />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </Router>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: authSelectors.isAuthenticated(state),
+  };
+};
+
+export default connect(mapStateToProps)(App);
