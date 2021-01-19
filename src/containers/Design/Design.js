@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as designActions from '../../store/design/actions';
+import "./Design.css";
 
 class Design extends Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class Design extends Component {
     const src = this.props.design && this.props.design.image;
 
     return (
-      <div>
+      <div className="design">
         <h1>{name}</h1>
         <img src={src} alt={name} />
       </div>
