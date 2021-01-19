@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import GridItem from "./GridItem/GridItem";
 import { CSSGrid, makeResponsive } from "react-stonecutter";
 import "./Grid.css";
@@ -20,7 +21,9 @@ class Grid extends Component {
         >
           {this.props.data.map((item) => (
             <li key={item.id}>
-              <GridItem image={item.image} />
+              <Link to={"/d/" + item.id}>
+                <GridItem image={item.image} />
+              </Link>
             </li>
           ))}
         </GridComponent>
