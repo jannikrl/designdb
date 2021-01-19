@@ -6,7 +6,7 @@ const Toggle = (props) => {
       <input
         type="checkbox"
         onChange={(event) => props.onChange(event.target.checked)}
-        defaultChecked={props.selected}
+        checked={props.selected}
         id={props.name}
         name={props.name}
       />
