@@ -1,137 +1,72 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Input from "../../../components/UI/Input/Input";
-import * as authActions from '../../../store/auth/actions';
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { Redirect, withRouter } from "react-router-dom";
+import * as authActions from "../../../store/auth/actions";
+import * as authSelectors from "../../../store/auth/selectors";
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string().min(6, "Too Short!").required("Required"),
+});
 
 class LoginForm extends Component {
-  state = {
-    loginForm: {
-      email: {
-        elementType: "input",
-        elementConfig: {
-          type: "email",
-          placeholder: "E-Mail",
-        },
-        value: "",
-        validation: {
-          required: true,
-          isEmail: true,
-        },
-        valid: false,
-        touched: false,
-      },
-      password: {
-        elementType: "input",
-        elementConfig: {
-          type: "password",
-          placeholder: "Password",
-        },
-        value: "",
-        validation: {
-          required: true,
-          minLength: 6,
-        },
-        valid: false,
-        touched: false,
-      },
-    },
-    formIsValid: false,
+  submitHandler = (values) => {
+    this.props.login(values.email, values.password);
   };
-
-  inputChangedHandler = (event, inputIdentifier) => {
-    const updatedLoginForm = {
-      ...this.state.loginForm,
-    };
-    const updatedFormElement = {
-      ...updatedLoginForm[inputIdentifier],
-    };
-    updatedFormElement.value = event.target.value;
-    updatedFormElement.valid = this.checkValidity(
-      updatedFormElement.value,
-      updatedFormElement.validation
-    );
-    updatedFormElement.touched = true;
-    updatedLoginForm[inputIdentifier] = updatedFormElement;
-
-    let formIsValid = true;
-    for (let inputIdentifier in updatedLoginForm) {
-      formIsValid = updatedLoginForm[inputIdentifier].valid && formIsValid;
-    }
-    this.setState({ loginForm: updatedLoginForm, formIsValid: formIsValid });
-  };
-
-  submitHandler = ( event ) => {
-    event.preventDefault();
-
-    const formData = {};
-    for (let formElementIdentifier in this.state.loginForm) {
-        formData[formElementIdentifier] = this.state.loginForm[formElementIdentifier].value;
-    }
-
-    console.log(formData);
-}
-
-  checkValidity(value, rules) {
-    let isValid = true;
-    if (!rules) {
-      return true;
-    }
-
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    if (rules.isEmail) {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      isValid = pattern.test(value) && isValid;
-    }
-
-    return isValid;
-  }
 
   render() {
-    const formElementsArray = [];
-    for (let key in this.state.loginForm) {
-      formElementsArray.push({
-        id: key,
-        config: this.state.loginForm[key],
-      });
-    }
-    let form = (
-      <form onSubmit={this.submitHandler}>
-        {formElementsArray.map((formElement) => (
-          <Input
-            key={formElement.id}
-            elementType={formElement.config.elementType}
-            elementConfig={formElement.config.elementConfig}
-            value={formElement.config.value}
-            invalid={!formElement.config.valid}
-            shouldValidate={formElement.config.validation}
-            touched={formElement.config.touched}
-            changed={(event) => this.inputChangedHandler(event, formElement.id)}
-          />
-        ))}
-        <button disabled={!this.state.formIsValid}>Login</button>
-      </form>
-    );
+    const errorMessage = this.props.error ? <p>Login failed</p> : null;
+    const loading = this.props.loading ? <p>Loading</p> : null;
+    const redirect = this.props.isAuthenticated ? <Redirect to="/" /> : null;
+
     return (
       <div>
-        <h4>Login</h4>
-        {form}
+        {errorMessage}
+        {loading}
+        {redirect}
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={LoginSchema}
+          onSubmit={this.submitHandler}
+        >
+          {({ errors, touched }) => (
+            <Form>
+              <label for="email">Email</label>
+              <Field name="email" type="email" id="email"></Field>
+              {errors.email && touched.email ? (<i>{errors.email}</i>) : null}
+
+              <label for="password">Password</label>
+              <Field name="password" type="password" id="password"></Field>
+              {errors.password && touched.password ? (<i>{errors.password}</i>) : null}
+
+              <button type="submit">Submit</button>
+            </Form>
+          )}
+        </Formik>
       </div>
     );
   }
 }
 
-const mapDispatchToState = (dispatch) => {
-    return {
-      login: () => dispatch(authActions.auth()),
-    };
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+    isAuthenticated: authSelectors.isAuthenticated(state),
   };
-  
+};
 
-export default connect(null, mapDispatchToState)(LoginForm);
+const mapDispatchToState = (dispatch) => {
+  return {
+    login: (email, password) => dispatch(authActions.auth(email, password)),
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToState)(LoginForm)
+);

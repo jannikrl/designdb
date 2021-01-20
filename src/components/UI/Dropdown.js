@@ -2,7 +2,7 @@ import React from "react";
 
 const Dropdown = (props) => (
   <select onChange={(event) => props.onChange(event.target.value)}>
-    <option disabled selected={!props.selected} key="placeholder">
+    <option selected={!props.selected} key="placeholder" value="">
       {props.placeholder}
     </option>
     {props.options.map((option) => {

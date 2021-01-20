@@ -20,7 +20,7 @@ class Controls extends Component {
         />
         <Dropdown
           options={this.props.designers}
-          placeholder="Designer"
+          placeholder="All designers"
           onChange={this.props.selectDesigner}
         />
       </div>
