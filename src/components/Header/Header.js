@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Header.css";
+import * as styles from "./Header.module.scss";
 
 const Header = (props) => {
   const loginLink = !props.isAuthenticated ? (
@@ -11,8 +11,8 @@ const Header = (props) => {
   ) : null;
 
   return (
-    <header className={"header"}>
-      <h1 className={"logo"}><Link to="/">designdb</Link></h1>
+    <header className={styles.header}>
+      <h1 className={styles.logo}><Link to="/">designdb</Link></h1>
       <nav>
         {loginLink}
         {logoutLink}

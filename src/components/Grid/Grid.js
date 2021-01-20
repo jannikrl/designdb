@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import GridItem from "./GridItem/GridItem";
 import { CSSGrid, makeResponsive } from "react-stonecutter";
-import "./Grid.css";
+import * as styles from "./Grid.module.scss";
 
 const GridComponent = makeResponsive(CSSGrid, { maxWidth: 2400 });
 
 class Grid extends Component {
   render() {
     return (
-      <div className="grid">
+      <div className={styles.grid}>
         <GridComponent
           component="ul"
           columns={5}

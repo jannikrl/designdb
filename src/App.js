@@ -8,7 +8,6 @@ import Auth from "./containers/Auth/Auth";
 import Logout from "./containers/Auth/Logout/Logout";
 import Header from "./components/Header/Header";
 import * as authSelectors from "./store/auth/selectors";
-import "./App.css";
 
 class App extends Component {
   render() {

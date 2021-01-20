@@ -1,8 +1,8 @@
 import React from 'react';
-import './GridItem.css';
+import * as styles from './GridItem.module.scss';
 
 const GridItem = (props) => (
-    <div className='grid-item'>
+    <div className={styles.gridItem}>
         <img src={props.image} alt="" />
     </div>
 )
