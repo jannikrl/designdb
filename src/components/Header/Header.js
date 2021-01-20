@@ -12,7 +12,9 @@ const Header = (props) => {
 
   return (
     <header className={styles.header}>
-      <h1 className={styles.logo}><Link to="/">designdb</Link></h1>
+      <h1 className={styles.logo}>
+        <Link to="/">designdb</Link>
+      </h1>
       <nav>
         {loginLink}
         {logoutLink}
