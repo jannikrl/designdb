@@ -1,23 +1,23 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import Controls from "./Controls/Controls";
 import Grid from "../../components/Grid/Grid";
 import { connect } from "react-redux";
 import * as actions from "../../store/grid/actions";
 
-class Designs extends Component {
-  componentDidMount() {
-      this.props.fetchDesigns();
-  }
+const Designs = (props) => {
+  const { fetchDesigns } = props;
 
-  render() {
-    return (
-      <div>
-        <Controls />
-        <Grid data={this.props.designs} />
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    fetchDesigns();
+  }, [fetchDesigns]);
+
+  return (
+    <div>
+      <Controls />
+      <Grid data={props.designs} />
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {

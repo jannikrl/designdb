@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -11,47 +11,47 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().min(6, "Too Short!").required("Required"),
 });
 
-class LoginForm extends Component {
-  submitHandler = (values) => {
-    this.props.login(values.email, values.password);
+const LoginForm = (props) => {
+  const submitHandler = (values) => {
+    props.login(values.email, values.password);
   };
 
-  render() {
-    const errorMessage = this.props.error ? <p>Login failed</p> : null;
-    const loading = this.props.loading ? <p>Loading</p> : null;
-    const redirect = this.props.isAuthenticated ? <Redirect to="/" /> : null;
+  const errorMessage = props.error ? <p>Login failed</p> : null;
+  const loading = props.loading ? <p>Loading</p> : null;
+  const redirect = props.isAuthenticated ? <Redirect to="/" /> : null;
 
-    return (
-      <div>
-        {errorMessage}
-        {loading}
-        {redirect}
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-          validationSchema={LoginSchema}
-          onSubmit={this.submitHandler}
-        >
-          {({ errors, touched }) => (
-            <Form>
-              <label for="email">Email</label>
-              <Field name="email" type="email" id="email"></Field>
-              {errors.email && touched.email ? (<i>{errors.email}</i>) : null}
+  return (
+    <div>
+      {errorMessage}
+      {loading}
+      {redirect}
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={LoginSchema}
+        onSubmit={submitHandler}
+      >
+        {({ errors, touched }) => (
+          <Form>
+            <label for="email">Email</label>
+            <Field name="email" type="email" id="email"></Field>
+            {errors.email && touched.email ? <i>{errors.email}</i> : null}
 
-              <label for="password">Password</label>
-              <Field name="password" type="password" id="password"></Field>
-              {errors.password && touched.password ? (<i>{errors.password}</i>) : null}
+            <label for="password">Password</label>
+            <Field name="password" type="password" id="password"></Field>
+            {errors.password && touched.password ? (
+              <i>{errors.password}</i>
+            ) : null}
 
-              <button type="submit">Submit</button>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    );
-  }
-}
+            <button type="submit">Submit</button>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {

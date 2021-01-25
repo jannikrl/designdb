@@ -1,4 +1,4 @@
-import React, { Component, Suspense, lazy } from "react";
+import React, { Suspense, lazy } from "react";
 import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -15,32 +15,30 @@ import * as authSelectors from "./store/auth/selectors";
 
 const Design = lazy(() => import("./containers/Design/Design"));
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <Header isAuthenticated={this.props.isAuthenticated} />
-        <Suspense fallback={<p>Loading...</p>}>
-          <Switch>
-            <Route path="/d/:id">
-              <Design />
-            </Route>
-            <Route path="/auth">
-              <Auth />
-            </Route>
-            <Route path="/logout">
-              <Logout />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-            <Redirect to="/" />
-          </Switch>
-        </Suspense>
-      </Router>
-    );
-  }
-}
+const app = (props) => {
+  return (
+    <Router>
+      <Header isAuthenticated={props.isAuthenticated} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Switch>
+          <Route path="/d/:id">
+            <Design />
+          </Route>
+          <Route path="/auth">
+            <Auth />
+          </Route>
+          <Route path="/logout">
+            <Logout />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </Suspense>
+    </Router>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -48,4 +46,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(app);

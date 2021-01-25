@@ -1,32 +1,32 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import Toggle from "../../../components/UI/Toggle";
 import Dropdown from "../../../components/UI/Dropdown";
 import { connect } from "react-redux";
 import * as gridActions from "../../../store/grid/actions";
 import * as gridSelectors from "../../../store/grid/selectors";
 
-class Controls extends Component {
-  componentDidMount() {
-      this.props.fetchDesigners();
-  }
+const Controls = (props) => {
+  const { fetchDesigners } = props;
 
-  render() {
-    return (
-      <div>
-        <Toggle
-          name="Featured"
-          selected={this.props.showFeatured}
-          onChange={this.props.updateShowFeatured}
-        />
-        <Dropdown
-          options={this.props.designers}
-          placeholder="All designers"
-          onChange={this.props.selectDesigner}
-        />
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    fetchDesigners();
+  }, [fetchDesigners]);
+
+  return (
+    <div>
+      <Toggle
+        name="Featured"
+        selected={props.showFeatured}
+        onChange={props.updateShowFeatured}
+      />
+      <Dropdown
+        options={props.designers}
+        placeholder="All designers"
+        onChange={props.selectDesigner}
+      />
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
