@@ -21,7 +21,7 @@ const app = (props) => {
       <Header isAuthenticated={props.isAuthenticated} />
       <Suspense fallback={<p>Loading...</p>}>
         <Switch>
-          <Route path="/d/:id">
+          <Route path="/d/:designId">
             <Design />
           </Route>
           <Route path="/auth">

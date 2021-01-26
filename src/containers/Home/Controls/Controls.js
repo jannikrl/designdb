@@ -1,12 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import Toggle from "../../../components/UI/Toggle";
 import Dropdown from "../../../components/UI/Dropdown";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as gridActions from "../../../store/grid/actions";
 import * as gridSelectors from "../../../store/grid/selectors";
 
 const Controls = (props) => {
-  const { fetchDesigners } = props;
+  const showFeatured = useSelector((state) => gridSelectors.getShowFeatured(state));
+  const designers = useSelector((state) => state.grid.designers);
+
+  const dispatch = useDispatch();
+
+  const updateShowFeatured = (value) => dispatch(gridActions.showFeatured(value));
+  const selectDesigner = (id) => dispatch(gridActions.selectDesigner(id));
+  const fetchDesigners = useCallback(() => dispatch(gridActions.fetchDesigners()), [dispatch]);
 
   useEffect(() => {
     fetchDesigners();
@@ -16,31 +23,16 @@ const Controls = (props) => {
     <div>
       <Toggle
         name="Featured"
-        selected={props.showFeatured}
-        onChange={props.updateShowFeatured}
+        selected={showFeatured}
+        onChange={updateShowFeatured}
       />
       <Dropdown
-        options={props.designers}
+        options={designers}
         placeholder="All designers"
-        onChange={props.selectDesigner}
+        onChange={selectDesigner}
       />
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    showFeatured: gridSelectors.getShowFeatured(state),
-    designers: state.grid.designers,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateShowFeatured: (value) => dispatch(gridActions.showFeatured(value)),
-    selectDesigner: (id) => dispatch(gridActions.selectDesigner(id)),
-    fetchDesigners: () => dispatch(gridActions.fetchDesigners()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Controls);
+export default Controls;

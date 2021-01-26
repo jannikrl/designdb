@@ -1,11 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import Controls from "./Controls/Controls";
 import Grid from "../../components/Grid/Grid";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/grid/actions";
 
 const Designs = (props) => {
-  const { fetchDesigns } = props;
+  const designs = useSelector((state) => state.grid.designs);
+
+  const dispatch = useDispatch();
+
+  const fetchDesigns = useCallback(() => dispatch(actions.fetchDesigns()), [
+    dispatch,
+  ]);
 
   useEffect(() => {
     fetchDesigns();
@@ -14,21 +20,9 @@ const Designs = (props) => {
   return (
     <div>
       <Controls />
-      <Grid data={props.designs} />
+      <Grid data={designs} />
     </div>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    designs: state.grid.designs,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchDesigns: () => dispatch(actions.fetchDesigns()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Designs);
+export default Designs;

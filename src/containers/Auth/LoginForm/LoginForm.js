@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Redirect, withRouter } from "react-router-dom";
@@ -12,18 +12,25 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginForm = (props) => {
-  const submitHandler = (values) => {
-    props.login(values.email, values.password);
-  };
+  const isLoading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
+  const isAuthenticated = useSelector((state) =>
+    authSelectors.isAuthenticated(state)
+  );
 
-  const errorMessage = props.error ? <p>Login failed</p> : null;
-  const loading = props.loading ? <p>Loading</p> : null;
-  const redirect = props.isAuthenticated ? <Redirect to="/" /> : null;
+  const dispatch = useDispatch();
+
+  const login = (email, password) =>
+    dispatch(authActions.auth(email, password));
+
+  const errorMessage = error ? <p>Login failed</p> : null;
+  const loadingText = isLoading ? <p>Loading</p> : null;
+  const redirect = isAuthenticated ? <Redirect to="/" /> : null;
 
   return (
     <div>
       {errorMessage}
-      {loading}
+      {loadingText}
       {redirect}
       <Formik
         initialValues={{
@@ -31,7 +38,7 @@ const LoginForm = (props) => {
           password: "",
         }}
         validationSchema={LoginSchema}
-        onSubmit={submitHandler}
+        onSubmit={(values) => login(values.email, values.password)}
       >
         {({ errors, touched }) => (
           <Form>
@@ -53,20 +60,4 @@ const LoginForm = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    loading: state.auth.loading,
-    error: state.auth.error,
-    isAuthenticated: authSelectors.isAuthenticated(state),
-  };
-};
-
-const mapDispatchToState = (dispatch) => {
-  return {
-    login: (email, password) => dispatch(authActions.auth(email, password)),
-  };
-};
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToState)(LoginForm)
-);
+export default withRouter(LoginForm);
