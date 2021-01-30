@@ -1,9 +1,11 @@
 import auth from './auth/reducer';
-import grid from "./grid/reducer";
 import design from './design/reducer';
+import designs from './designs/reducer';
+import designers from "./designers/reducer";
 
 export {
     auth,
-    grid,
     design,
+    designs,
+    designers,
 }

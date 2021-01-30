@@ -2,18 +2,20 @@ import React, { useCallback, useEffect } from "react";
 import Toggle from "../../../components/UI/Toggle";
 import Dropdown from "../../../components/UI/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
-import * as gridActions from "../../../store/grid/actions";
-import * as gridSelectors from "../../../store/grid/selectors";
+import * as designsActions from "../../../store/designs/actions";
+import * as designsSelectors from "../../../store/designs/selectors";
+import * as designersActions from "../../../store/designers/actions";
+import * as designersSelector from "../../../store/designers/selectors";
 
 const Controls = (props) => {
-  const showFeatured = useSelector((state) => gridSelectors.getShowFeatured(state));
-  const designers = useSelector((state) => state.grid.designers);
+  const showFeatured = useSelector((state) => designsSelectors.getShowFeatured(state));
+  const designers = useSelector((state) => designersSelector.getDesigners(state));
 
   const dispatch = useDispatch();
 
-  const updateShowFeatured = (value) => dispatch(gridActions.showFeatured(value));
-  const selectDesigner = (id) => dispatch(gridActions.selectDesigner(id));
-  const fetchDesigners = useCallback(() => dispatch(gridActions.fetchDesigners()), [dispatch]);
+  const updateShowFeatured = (value) => dispatch(designsActions.showFeatured(value));
+  const selectDesigner = (id) => dispatch(designsActions.selectDesigner(id));
+  const fetchDesigners = useCallback(() => dispatch(designersActions.fetchDesigners()), [dispatch]);
 
   useEffect(() => {
     fetchDesigners();

@@ -2,14 +2,15 @@ import React, { useCallback, useEffect } from "react";
 import Controls from "./Controls/Controls";
 import Grid from "../../components/Grid/Grid";
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../store/grid/actions";
+import * as designsActions from "../../store/designs/actions";
+import * as designsSelectors from "../../store/designs/selectors";
 
 const Designs = (props) => {
-  const designs = useSelector((state) => state.grid.designs);
+  const designs = useSelector((state) => designsSelectors.getDesigns(state));
 
   const dispatch = useDispatch();
 
-  const fetchDesigns = useCallback(() => dispatch(actions.fetchDesigns()), [
+  const fetchDesigns = useCallback(() => dispatch(designsActions.fetchDesigns()), [
     dispatch,
   ]);
 

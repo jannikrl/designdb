@@ -1,6 +1,5 @@
 import * as actionTypes from "./actionTypes";
 import * as designService from "../../services/designService";
-import * as designerService from "../../services/designerService";
 import * as gridSelectors from "./selectors";
 
 export const showFeatured = (value) => {
@@ -41,19 +40,5 @@ export const fetchDesignsSuccess = (designs) => {
   return {
     type: actionTypes.FETCH_DESIGNS_SUCCESS,
     designs: designs,
-  };
-};
-
-export const fetchDesigners = () => {
-  return (dispatch) => {
-    const designers = designerService.getDesigners();
-    dispatch(fetchDesignersSuccess(designers));
-  };
-};
-
-export const fetchDesignersSuccess = (designers) => {
-  return {
-    type: actionTypes.FETCH_DESIGNERS_SUCCESS,
-    designers: designers,
   };
 };

@@ -2,9 +2,10 @@ import * as actionTypes from "./actionTypes";
 
 const initialState = {
   designs: [],
-  designers: [],
-  showFeatured: true,
-  selectedDesigner: "",
+  filterOptions: {
+    showFeatured: true,
+    selectedDesigner: "",
+  },
 };
 
 const fetchDesignsSuccess = (state, action) => {
@@ -14,25 +15,23 @@ const fetchDesignsSuccess = (state, action) => {
   };
 };
 
-const fetchDesignersSuccess = (state, action) => {
-  return {
-    ...state,
-    designers: action.designers,
-  };
-};
-
 const showFeatured = (state, action) => {
   return {
     ...state,
-    showFeatured: action.value,
+    filterOptions: {
+      ...state.filterOptions,
+      showFeatured: action.value,
+    },
   };
 };
 
 const selectDesigner = (state, action) => {
   return {
     ...state,
-    selectedDesigner: action.id,
-    showFeatured: false,
+    filterOptions: {
+      selectedDesigner: action.id,
+      showFeatured: false,
+    },
   };
 };
 
@@ -40,8 +39,6 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_DESIGNS_SUCCESS:
       return fetchDesignsSuccess(state, action);
-    case actionTypes.FETCH_DESIGNERS_SUCCESS:
-      return fetchDesignersSuccess(state, action);
     case actionTypes.SHOW_FEATURED:
       return showFeatured(state, action);
     case actionTypes.SELECT_DESIGNER:
