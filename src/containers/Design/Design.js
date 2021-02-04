@@ -21,7 +21,7 @@ const Design = (props) => {
     fetchDesign(designId);
   }, [fetchDesign, designId]);
 
-  if (+designId === design.id) {
+  if (design && +designId !== design.id) {
       dispatch(designActions.reset());
   }
   
