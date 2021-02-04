@@ -27,11 +27,12 @@ export const selectDesigner = (id) => {
 };
 
 export const fetchDesigns = () => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     const state = getState();
     const filterOptions = gridSelectors.getFilterOptions(state);
 
-    const designs = designService.getDesigns(filterOptions);
+    const designs = await designService.fetchDesigns(filterOptions);
+    
     dispatch(fetchDesignsSuccess(designs));
   };
 };
