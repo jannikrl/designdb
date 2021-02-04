@@ -7,7 +7,6 @@ import * as styles from "./Design.module.scss";
 
 const Design = (props) => {
   const design = useSelector((state) => designSelectors.getDesign(state));
-  const isLoading = useSelector((state) => designSelectors.isLoading(state));
 
   const dispatch = useDispatch();
 
@@ -22,10 +21,12 @@ const Design = (props) => {
     fetchDesign(designId);
   }, [fetchDesign, designId]);
 
-  const hasLoaded = !isLoading && design && +designId === design.id;
+  if (+designId === design.id) {
+      dispatch(designActions.reset());
+  }
   
   return (
-    hasLoaded && (
+    design && (
       <div className={styles.design}>
         <h1>{design.name}</h1>
         <img src={design.image} alt={design.name} />

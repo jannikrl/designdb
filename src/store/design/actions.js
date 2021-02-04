@@ -32,3 +32,9 @@ export const fetchDesignFailure = (error) => {
     error: error,
   };
 };
+
+export const reset = () => {
+  return {
+    type: actionTypes.RESET,
+  };
+};

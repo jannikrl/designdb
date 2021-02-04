@@ -39,6 +39,8 @@ const reducer = (state = initialState, action) => {
       return fetchDesignSuccess(state, action);
     case actionTypes.FETCH_DESIGN_FAILURE:
       return fetchDesignFailure(state, action);
+    case actionTypes.RESET:
+      return initialState;
     default:
       return state;
   }
