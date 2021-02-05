@@ -7,7 +7,7 @@ const initialState = {
     error: false,
 }
 
-const authInit = (state) => {
+const loginInit = (state) => {
     return {
         ...state,
         loading: true,
@@ -15,16 +15,15 @@ const authInit = (state) => {
     }
 }
 
-const authSuccess = (state, action) => {
+const loginSuccess = (state, action) => {
     return {
         ...state,
         token: action.token,
-        userId: action.userId,
         loading: false,
     }
 }
 
-const authFailure = (state) => {
+const loginFailure = (state) => {
     return {
         ...state,
         loading: false,
@@ -42,10 +41,10 @@ const logout = (state) => {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case actionTypes.AUTH_INIT: return authInit(state);
-        case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
-        case actionTypes.AUTH_FAILURE: return authFailure(state);
-        case actionTypes.AUTH_LOGOUT: return logout(state);
+        case actionTypes.LOGIN_INIT: return loginInit(state);
+        case actionTypes.LOGIN_SUCCESS: return loginSuccess(state, action);
+        case actionTypes.LOGIN_FAILURE: return loginFailure(state);
+        case actionTypes.LOGIN_LOGOUT: return logout(state);
         default: return state;
     }
 };

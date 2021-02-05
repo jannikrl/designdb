@@ -21,7 +21,7 @@ const LoginForm = (props) => {
   const dispatch = useDispatch();
 
   const login = (email, password) =>
-    dispatch(authActions.auth(email, password));
+    dispatch(authActions.login(email, password));
 
   const errorMessage = error ? <p>Login failed</p> : null;
   const loadingText = isLoading ? <p>Loading</p> : null;

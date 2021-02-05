@@ -10,9 +10,10 @@ const Designs = (props) => {
 
   const dispatch = useDispatch();
 
-  const fetchDesigns = useCallback(() => dispatch(designsActions.fetchDesigns()), [
-    dispatch,
-  ]);
+  const fetchDesigns = useCallback(
+    () => dispatch(designsActions.fetchDesigns()),
+    [dispatch]
+  );
 
   useEffect(() => {
     fetchDesigns();

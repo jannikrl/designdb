@@ -1,42 +1,41 @@
 import * as actionTypes from "./actionTypes";
 import * as authService from "../../services/authService";
 
-const authInit = () => {
+const loginInit = () => {
   return {
-    type: actionTypes.AUTH_INIT,
+    type: actionTypes.LOGIN_INIT,
   };
 };
 
-const authSuccess = (token, userId) => {
+const loginSuccess = (token) => {
   return {
-    type: actionTypes.AUTH_SUCCESS,
+    type: actionTypes.LOGIN_SUCCESS,
     token: token,
-    userId: userId,
   };
 };
 
-const authFailure = () => {
+const loginFailure = () => {
   return {
-    type: actionTypes.AUTH_FAILURE,
+    type: actionTypes.LOGIN_FAILURE,
   };
 };
 
-export const auth = (email, password) => {
+export const login = (email, password) => {
   return async (dispatch) => {
-    dispatch(authInit());
+    dispatch(loginInit());
     try {
-      const response = await authService.auth(email, password);
-      const token = response.token;
-      const userId = response.userId;
-      dispatch(authSuccess(token, userId));
+      const token = await authService.login(email, password);
+      dispatch(loginSuccess(token));
     } catch {
-      dispatch(authFailure());
+      dispatch(loginFailure());
     }
   };
 };
 
 export const logout = () => {
+  authService.logout();
+
   return {
-    type: actionTypes.AUTH_LOGOUT,
+    type: actionTypes.LOGIN_LOGOUT,
   };
 };
