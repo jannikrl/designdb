@@ -22,14 +22,41 @@ const Design = (props) => {
   }, [fetchDesign, designId]);
 
   if (design && +designId !== design.id) {
-      dispatch(designActions.reset());
+    dispatch(designActions.reset());
   }
-  
+
   return (
     design && (
       <div className={styles.design}>
         <h1>{design.name}</h1>
-        <img src={design.image} alt={design.name} />
+
+        {design.image && <img src={design.image} alt={design.name} />}
+
+        {design.model && (
+          <p>
+            <strong>Model:</strong> {design.model}
+          </p>
+        )}
+        {design.yearFrom && (
+          <p>
+            <strong>Year from:</strong> {design.yearFrom}
+          </p>
+        )}
+        {design.yearTo && (
+          <p>
+            <strong>Year to:</strong> {design.yearTo}
+          </p>
+        )}
+        {design.designer && (
+          <p>
+            <strong>Designer:</strong> {design.designer.name}
+          </p>
+        )}
+        {design.manufacturer && (
+          <p>
+            <strong>Manufacturer:</strong> {design.manufacturer.name}
+          </p>
+        )}
       </div>
     )
   );
