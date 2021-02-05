@@ -1,35 +1,17 @@
 import { axios } from "./baseService";
-import _ from "lodash";
+import { keysToCamelCase } from "../utils/utils";
 
 export const fetchDesign = async (id) => {
   const design = await axios
     .get("/designs/" + id)
     .then((response) => {
-      return mapDesignValues(response.data);
+      return keysToCamelCase(response.data);
     })
     .catch(() => {
       throw new Error("designService fetchDesign failed");
     });
 
   return design;
-};
-
-const mapDesignValues = (design) => {
-  const newDesign = _.mapKeys(design, (value, key) => _.camelCase(key));
-
-  if (newDesign.designer) {
-    newDesign.designer = _.mapKeys(newDesign.designer, (value, key) =>
-      _.camelCase(key)
-    );
-  }
-
-  if (newDesign.manufacturer) {
-    newDesign.manufacturer = _.mapKeys(newDesign.manufacturer, (value, key) =>
-      _.camelCase(key)
-    );
-  }
-
-  return newDesign;
 };
 
 export const fetchDesigns = async (filterOptions) => {
@@ -39,7 +21,7 @@ export const fetchDesigns = async (filterOptions) => {
   const designs = await axios
     .get("/designs?" + queryString)
     .then((response) => {
-      return response.data.map((design) => mapDesignValues(design));
+      return response.data.map((design) => keysToCamelCase(design));
     })
     .catch(() => {
       throw new Error("designService fetchDesigns failed");

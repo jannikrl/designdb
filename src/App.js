@@ -14,6 +14,7 @@ import Header from "./components/Header/Header";
 import * as authSelectors from "./store/auth/selectors";
 
 const Design = lazy(() => import("./containers/Design/Design"));
+const Designer = lazy(() => import("./containers/Designer/Designer"));
 
 const app = (props) => {
   return (
@@ -21,8 +22,11 @@ const app = (props) => {
       <Header isAuthenticated={props.isAuthenticated} />
       <Suspense fallback={<div></div>}>
         <Switch>
-          <Route path="/d/:designId">
+          <Route path="/design/:id">
             <Design />
+          </Route>
+          <Route path="/designer/:id">
+            <Designer />
           </Route>
           <Route path="/auth">
             <Auth />

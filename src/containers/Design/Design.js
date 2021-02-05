@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import * as designActions from "../../store/design/actions";
 import * as designSelectors from "../../store/design/selectors";
-import * as styles from "./Design.module.scss";
+import * as classes from "./Design.module.scss";
 
 const Design = (props) => {
   const design = useSelector((state) => designSelectors.getDesign(state));
@@ -15,19 +15,19 @@ const Design = (props) => {
     [dispatch]
   );
 
-  const { designId } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    fetchDesign(designId);
-  }, [fetchDesign, designId]);
+    fetchDesign(id);
+  }, [fetchDesign, id]);
 
-  if (design && +designId !== design.id) {
+  if (design && +id !== design.id) {
     dispatch(designActions.reset());
   }
 
   return (
     design && (
-      <div className={styles.design}>
+      <div className={classes.design}>
         <h1>{design.name}</h1>
 
         {design.image && <img src={design.image} alt={design.name} />}
@@ -49,7 +49,7 @@ const Design = (props) => {
         )}
         {design.designer && (
           <p>
-            <strong>Designer:</strong> {design.designer.name}
+            <strong>Designer:</strong> <Link to={"/designer/" + design.designer.id}>{design.designer.name}</Link>
           </p>
         )}
         {design.manufacturer && (

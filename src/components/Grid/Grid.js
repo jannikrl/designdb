@@ -20,7 +20,7 @@ const Grid = (props) => {
       >
         {props.data.map((item) => (
           <li key={item.id}>
-            <Link to={"/d/" + item.id}>
+            <Link to={"/design/" + item.id}>
               <GridItem image={item.image} />
             </Link>
           </li>

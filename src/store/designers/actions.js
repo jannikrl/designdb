@@ -2,8 +2,8 @@ import * as actionTypes from "./actionTypes";
 import * as designerService from "../../services/designerService";
 
 export const fetchDesigners = () => {
-  return (dispatch) => {
-    const designers = designerService.getDesigners();
+  return async (dispatch) => {
+    const designers = await designerService.fetchDesigners();
     dispatch(fetchDesignersSuccess(designers));
   };
 };

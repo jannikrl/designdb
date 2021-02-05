@@ -1,18 +1,24 @@
-/**
- * @TODO: Use API
- */
+import { axios } from "./baseService";
+import { keysToCamelCase } from "../utils/utils";
 
-const data = [
-  {
-    id: "1",
-    name: "Arne Jakobsen",
-  },
-  {
-    id: "2",
-    name: "Hans Wegner",
-  },
-];
+export const fetchDesigners = async () => {
+  const designers = await axios
+    .get("/designers")
+    .then((response) => response.data.map((design) => keysToCamelCase(design)))
+    .catch((error) => {
+      throw new Error("designerService getDesigners failed");
+    });
 
-export const getDesigners = () => {
-  return data;
+  return designers;
+};
+
+export const fetchDesigner = async (id) => {
+  const designer = await axios
+    .get("/designers/" + id)
+    .then((response) => keysToCamelCase(response.data))
+    .catch((error) => {
+      throw new Error("designerService getDesigner failed");
+    });
+
+  return designer;
 };
