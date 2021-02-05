@@ -3,6 +3,7 @@ import design from './design/reducer';
 import designs from './designs/reducer';
 import designer from "./designer/reducer";
 import designers from "./designers/reducer";
+import manufacturer from "./manufacturer/reducer";
 
 export {
     auth,
@@ -10,4 +11,5 @@ export {
     designs,
     designer,
     designers,
+    manufacturer,
 }

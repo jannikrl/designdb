@@ -54,7 +54,7 @@ const Design = (props) => {
         )}
         {design.manufacturer && (
           <p>
-            <strong>Manufacturer:</strong> {design.manufacturer.name}
+            <strong>Manufacturer:</strong> <Link to={"/manufacturer/" + design.manufacturer.id}>{design.manufacturer.name}</Link>
           </p>
         )}
       </div>

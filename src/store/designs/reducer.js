@@ -4,7 +4,7 @@ const initialState = {
   designs: [],
   filterOptions: {
     showFeatured: true,
-    selectedDesigner: "",
+    designer: null,
   },
 };
 
@@ -29,7 +29,7 @@ const selectDesigner = (state, action) => {
   return {
     ...state,
     filterOptions: {
-      selectedDesigner: action.id,
+      designer: action.id,
       showFeatured: false,
     },
   };

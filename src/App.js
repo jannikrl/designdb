@@ -15,6 +15,7 @@ import * as authSelectors from "./store/auth/selectors";
 
 const Design = lazy(() => import("./containers/Design/Design"));
 const Designer = lazy(() => import("./containers/Designer/Designer"));
+const Manufacturer = lazy(() => import("./containers/Manufacturer/Manufacturer"));
 
 const app = (props) => {
   return (
@@ -27,6 +28,9 @@ const app = (props) => {
           </Route>
           <Route path="/designer/:id">
             <Designer />
+          </Route>
+          <Route path="/manufacturer/:id">
+            <Manufacturer />
           </Route>
           <Route path="/auth">
             <Auth />
