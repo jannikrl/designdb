@@ -10,3 +10,15 @@ export const keysToCamelCase = (object) => {
   });
   return newObject;
 };
+
+export const keysToSnakeCase = (object) => {
+    let newObject = _.mapKeys(object, (value, key) => _.snakeCase(key));
+    newObject = _.mapValues(newObject, (value) => {
+      if (typeof value === "object" && value !== null) {
+        return keysToSnakeCase(value);
+      }
+      return value;
+    });
+    return newObject;
+  };
+  

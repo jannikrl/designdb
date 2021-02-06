@@ -1,8 +1,8 @@
 import React from "react";
 import LoginForm from "./LoginForm/LoginForm";
 
-const Auth = (props) => {
+const Login = (props) => {
   return <LoginForm />;
 };
 
-export default Auth;
+export default Login;

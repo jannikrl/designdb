@@ -1,14 +1,23 @@
 import { axios } from "./baseService";
-import { keysToCamelCase } from "../utils/utils";
+import { keysToCamelCase, keysToSnakeCase } from "../utils/utils";
 
 export const fetchDesign = async (id) => {
   const design = await axios
     .get("/designs/" + id)
-    .then((response) => {
-      return keysToCamelCase(response.data);
-    })
+    .then((response) => keysToCamelCase(response.data))
     .catch(() => {
       throw new Error("designService fetchDesign failed");
+    });
+
+  return design;
+};
+
+export const updateDesign = async (values) => {
+  const design = await axios
+    .put(`/designs/${values.id}`, keysToSnakeCase(values))
+    .then((response) => keysToCamelCase(response.data))
+    .catch((error) => {
+      throw new Error("designService updateDesign failed");
     });
 
   return design;
@@ -19,7 +28,7 @@ export const fetchDesigns = async (filterOptions) => {
   const queryString = toQueryString(queryParams);
 
   const designs = await axios
-    .get("/designs?" + queryString)
+    .get(`/designs?${queryString}`)
     .then((response) => {
       return response.data.map((design) => keysToCamelCase(design));
     })

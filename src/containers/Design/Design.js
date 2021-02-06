@@ -4,9 +4,13 @@ import { Link, useParams } from "react-router-dom";
 import * as designActions from "../../store/design/actions";
 import * as designSelectors from "../../store/design/selectors";
 import * as classes from "./Design.module.scss";
+import * as authSelectors from "../../store/auth/selectors";
 
 const Design = (props) => {
   const design = useSelector((state) => designSelectors.getDesign(state));
+  const isAuthenticated = useSelector((state) =>
+    authSelectors.isAuthenticated(state)
+  );
 
   const dispatch = useDispatch();
 
@@ -21,40 +25,55 @@ const Design = (props) => {
     fetchDesign(id);
   }, [fetchDesign, id]);
 
-  if (design && +id !== design.id) {
-    dispatch(designActions.reset());
-  }
+  const {
+    name,
+    image,
+    model,
+    yearFrom,
+    yearTo,
+    designer,
+    manufacturer,
+  } = design ? design : {};
 
   return (
     design && (
       <div className={classes.design}>
-        <h1>{design.name}</h1>
+        {isAuthenticated && (
+          <div>
+            <Link to={`/design/${id}/edit`}>Edit</Link>
+          </div>
+        )}
 
-        {design.image && <img src={design.image} alt={design.name} />}
+        <h2>{name}</h2>
 
-        {design.model && (
+        {image && <img src={image} alt={name} />}
+
+        {model && (
           <p>
-            <strong>Model:</strong> {design.model}
+            <strong>Model:</strong> {model}
           </p>
         )}
-        {design.yearFrom && (
+        {yearFrom && (
           <p>
-            <strong>Year from:</strong> {design.yearFrom}
+            <strong>Year:</strong> {yearFrom}
+            {yearTo && "-" + yearTo}
           </p>
         )}
-        {design.yearTo && (
+
+        {designer && (
           <p>
-            <strong>Year to:</strong> {design.yearTo}
+            <strong>Designer:</strong>{" "}
+            <Link to={`/designer/${designer.id}`}>
+              {designer.name}
+            </Link>
           </p>
         )}
-        {design.designer && (
+        {manufacturer && (
           <p>
-            <strong>Designer:</strong> <Link to={"/designer/" + design.designer.id}>{design.designer.name}</Link>
-          </p>
-        )}
-        {design.manufacturer && (
-          <p>
-            <strong>Manufacturer:</strong> <Link to={"/manufacturer/" + design.manufacturer.id}>{design.manufacturer.name}</Link>
+            <strong>Manufacturer:</strong>{" "}
+            <Link to={`/manufacturer/${manufacturer.id}`}>
+              {manufacturer.name}
+            </Link>
           </p>
         )}
       </div>

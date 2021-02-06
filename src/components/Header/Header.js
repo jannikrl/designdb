@@ -4,7 +4,7 @@ import * as styles from "./Header.module.scss";
 
 const Header = (props) => {
   const loginLink = !props.isAuthenticated ? (
-    <Link to="/auth">Login</Link>
+    <Link to="/login">Login</Link>
   ) : null;
   const logoutLink = props.isAuthenticated ? (
     <Link to="/logout">Logout</Link>
