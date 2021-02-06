@@ -35,8 +35,10 @@ const Design = (props) => {
     manufacturer,
   } = design ? design : {};
 
+  const didFetchDesign = design && design.id === +id;
+
   return (
-    design && (
+    didFetchDesign && (
       <div className={classes.design}>
         {isAuthenticated && (
           <div>
@@ -63,9 +65,7 @@ const Design = (props) => {
         {designer && (
           <p>
             <strong>Designer:</strong>{" "}
-            <Link to={`/designer/${designer.id}`}>
-              {designer.name}
-            </Link>
+            <Link to={`/designer/${designer.id}`}>{designer.name}</Link>
           </p>
         )}
         {manufacturer && (

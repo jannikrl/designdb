@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,18 +18,9 @@ const Edit = (props) => {
 
   const dispatch = useDispatch();
 
-  const fetchDesign = useCallback(
-    (id) => dispatch(designActions.fetchDesign(id)),
-    [dispatch]
-  );
-
   const updateDesign = (design) => dispatch(designActions.updateDesign(design));
 
   const { id } = useParams();
-
-  useEffect(() => {
-    fetchDesign(id);
-  }, [fetchDesign, id]);
 
   const submitHandler = (values) => {
     values.id = id;
@@ -58,15 +49,17 @@ const Edit = (props) => {
   };
 
   const isSuccess = didSubmit && !isLoading && !error;
-
   const redirect = isSuccess && <Redirect to={`/design/${id}`} />;
 
+  const didFetchDesign = design && design.id === +id;
+
   // TODO use formik hook https://formik.org/docs/api/useFormik
+  // TODO Move out in folder structure to /containers
 
   return (
     <div>
       {redirect}
-      {design && (
+      {didFetchDesign && (
         <Formik
           initialValues={initialValues}
           validationSchema={schema}

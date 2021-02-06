@@ -9,7 +9,6 @@ const initialState = {
 const fetchDesignStart = (state, action) => {
   return {
     ...state,
-    design: null,
     loading: true,
     error: null,
   };
@@ -34,7 +33,6 @@ const fetchDesignFailure = (state, action) => {
 const updateDesignStart = (state, action) => {
   return {
     ...state,
-    design: null,
     loading: true,
     error: null,
   };
