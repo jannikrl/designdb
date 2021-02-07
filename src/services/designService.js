@@ -26,7 +26,6 @@ export const updateDesign = async (values) => {
 export const fetchDesigns = async (filterOptions) => {
   const queryParams = mapToQueryParams(filterOptions);
   const queryString = toQueryString(queryParams);
-
   const designs = await axios
     .get(`/designs?${queryString}`)
     .then((response) => {
@@ -46,8 +45,8 @@ const mapToQueryParams = (filterOptions) => {
     queryParams["is-featured"] = filterOptions.showFeatured ? 1 : 0;
   }
 
-  if (filterOptions.selectedDesigner) {
-    queryParams.designer = filterOptions.selectedDesigner;
+  if (filterOptions.designer) {
+    queryParams.designer = filterOptions.designer;
   }
 
   return queryParams;
