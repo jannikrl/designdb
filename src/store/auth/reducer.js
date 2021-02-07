@@ -2,7 +2,6 @@ import * as actionTypes from './actionTypes'
 
 const initialState = {
     token: null,
-    userId: null,
     loading: false,
     error: false,
 }
@@ -35,7 +34,6 @@ const logout = (state) => {
     return {
         ...state,
         token: null,
-        userId: null,
     }
 }
 
@@ -44,7 +42,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.LOGIN_INIT: return loginInit(state);
         case actionTypes.LOGIN_SUCCESS: return loginSuccess(state, action);
         case actionTypes.LOGIN_FAILURE: return loginFailure(state);
-        case actionTypes.LOGIN_LOGOUT: return logout(state);
+        case actionTypes.LOGOUT: return logout(state);
         default: return state;
     }
 };

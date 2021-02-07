@@ -1,4 +1,4 @@
 export const LOGIN_INIT = "LOGIN_INIT";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
-export const LOGIN_LOGOUT = "LOGIN_LOGOUT";
+export const LOGOUT = "LOGOUT";

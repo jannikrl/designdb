@@ -1,5 +1,5 @@
-import React, { Suspense, lazy } from "react";
-import { connect } from "react-redux";
+import React, { Suspense, lazy, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +12,7 @@ import Login from "./containers/Login/Login";
 import Logout from "./containers/Login/Logout/Logout";
 import Header from "./components/Header/Header";
 import * as authSelectors from "./store/auth/selectors";
+import * as authActions from "./store/auth/actions";
 
 const Design = lazy(() => import("./containers/Design/Design"));
 const DesignEdit = lazy(() => import("./containers/Design/Edit/Edit"));
@@ -20,10 +21,20 @@ const Manufacturer = lazy(() =>
   import("./containers/Manufacturer/Manufacturer")
 );
 
-const app = (props) => {
+const App = (props) => {
+  const isAuthenticated = useSelector((state) =>
+    authSelectors.isAuthenticated(state)
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authActions.autoLogin());
+  }, [dispatch]);
+
   return (
     <Router>
-      <Header isAuthenticated={props.isAuthenticated} />
+      <Header isAuthenticated={isAuthenticated} />
       <Suspense fallback={<div></div>}>
         <Switch>
           <Route path="/design/:id/edit">
@@ -54,10 +65,4 @@ const app = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: authSelectors.isAuthenticated(state),
-  };
-};
-
-export default connect(mapStateToProps)(app);
+export default App;
