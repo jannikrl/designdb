@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as designActions from "../../store/design/actions";
 import * as designSelectors from "../../store/design/selectors";
+import * as designersActions from "../../store/designers/actions";
+import * as designersSelectors from "../../store/designers/selectors";
+import * as manufacturersActions from "../../store/manufacturers/actions";
+import * as manufacturersSelectors from "../../store/manufacturers/selectors";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Required"),
@@ -13,19 +17,43 @@ const schema = Yup.object().shape({
 const DesignEdit = (props) => {
   const [didSubmit, setDidSubmit] = useState(false);
   const design = useSelector((state) => designSelectors.getDesign(state));
+  const designers = useSelector((state) =>
+    designersSelectors.getDesigners(state)
+  );
+  const manufacturers = useSelector((state) =>
+    manufacturersSelectors.getManufacturers(state)
+  );
   const isLoading = useSelector((state) => designSelectors.isLoading(state));
   const error = useSelector((state) => designSelectors.getError(state));
 
   const dispatch = useDispatch();
 
+  const { id } = useParams();
+
+  const fetchDesign = useCallback(
+    () => dispatch(designActions.fetchDesign(id)),
+    [dispatch, id]
+  );
+  const fetchDesigners = useCallback(
+    () => dispatch(designersActions.fetchDesigners()),
+    [dispatch]
+  );
+  const fetchManufacturers = useCallback(
+    () => dispatch(manufacturersActions.fetchManufacturers()),
+    [dispatch]
+  );
   const updateDesign = (design) => dispatch(designActions.updateDesign(design));
 
-  const { id } = useParams();
+  useEffect(() => {
+    fetchDesign();
+    fetchDesigners();
+    fetchManufacturers();
+  }, [fetchDesign, fetchDesigners, fetchManufacturers]);
 
   const submitHandler = (values) => {
     values.id = id;
-    setDidSubmit(true);
     updateDesign(values);
+    setDidSubmit(true);
   };
 
   const {
@@ -34,8 +62,8 @@ const DesignEdit = (props) => {
     model,
     yearFrom,
     yearTo,
-    designer,
-    manufacturer,
+    designerId,
+    manufacturerId,
   } = design ? design : {};
 
   const initialValues = {
@@ -44,18 +72,20 @@ const DesignEdit = (props) => {
     model: model,
     yearFrom: yearFrom,
     yearTo: yearTo,
-    designer: designer,
-    manufacturer: manufacturer,
+    designerId: designerId,
+    manufacturerId: manufacturerId,
   };
 
   const isSuccess = didSubmit && !isLoading && !error;
   const redirect = isSuccess && <Redirect to={`/design/${id}`} />;
+  const errorMessage = didSubmit && error && <p>Something went wrong, try again</p>
 
   const didFetchDesign = design && design.id === +id;
 
   return (
     <div>
       {redirect}
+      {errorMessage}
       {didFetchDesign && (
         <Formik
           initialValues={initialValues}
@@ -96,6 +126,22 @@ const DesignEdit = (props) => {
                 {errors.yearTo && touched.yearTo ? (
                   <i>{errors.yearTo}</i>
                 ) : null}
+              </div>
+
+              <div>
+                <Field as="select" name="designerId">
+                  {designers.map((designer) => (
+                    <option value={designer.id}>{designer.name}</option>
+                  ))}
+                </Field>
+              </div>
+
+              <div>
+                <Field as="select" name="manufacturerId">
+                  {manufacturers.map((manufacturer) => (
+                    <option value={manufacturer.id}>{manufacturer.name}</option>
+                  ))}
+                </Field>
               </div>
 
               <div>
