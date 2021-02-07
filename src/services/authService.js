@@ -39,8 +39,8 @@ export const getLocalStorageToken = () => {
 };
 
 export const removeLocalStorageToken = () => {
-  localStorage.remove("token");
-  localStorage.remove("expiryDate");
+  localStorage.removeItem("token");
+  localStorage.removeItem("expiryDate");
 };
 
 export const logout = async () => {
