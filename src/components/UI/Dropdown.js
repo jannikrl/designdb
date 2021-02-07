@@ -1,7 +1,7 @@
 import React from "react";
 
 const Dropdown = (props) => (
-  <select onChange={(event) => props.onChange(event.target.value)}>
+  <select value={props.value} onChange={(event) => props.onChange(event.target.value)}>
     <option key="placeholder" value="">
       {props.placeholder}
     </option>

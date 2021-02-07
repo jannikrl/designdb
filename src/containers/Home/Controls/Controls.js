@@ -9,6 +9,7 @@ import * as designersSelector from "../../../store/designers/selectors";
 
 const Controls = (props) => {
   const showFeatured = useSelector((state) => designsSelectors.getShowFeatured(state));
+  const getSelectedDesigner = useSelector((state) => designsSelectors.getSelectedDesigner(state));
   const designers = useSelector((state) => designersSelector.getDesigners(state));
 
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const Controls = (props) => {
         options={designers}
         placeholder="All designers"
         onChange={selectDesigner}
+        value={getSelectedDesigner}
       />
     </div>
   );
