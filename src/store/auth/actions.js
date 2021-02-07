@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import * as authService from "../../services/authService";
+import * as baseService from "../../services/baseService";
 
 const loginInit = () => {
   return {
@@ -25,6 +26,7 @@ export const login = (email, password) => {
     dispatch(loginInit());
     try {
       const token = await authService.login(email, password);
+      baseService.addTokenAsDefault(token);
       dispatch(loginSuccess(token));
     } catch {
       dispatch(loginFailure());
@@ -36,9 +38,10 @@ export const autoLogin = () => {
   return (dispatch) => {
     const isTokenValid = authService.isLocalStorageTokenValid();
     const token = authService.getLocalStorageToken();
+    baseService.addTokenAsDefault(token);
     if (!isTokenValid) {
-        dispatch(logout());
-        return;
+      dispatch(logout());
+      return;
     }
     dispatch(loginSuccess(token));
   };
@@ -46,6 +49,7 @@ export const autoLogin = () => {
 
 export const logout = () => {
   authService.removeLocalStorageToken();
+  baseService.removeTokenAsDefault();
   return {
     type: actionTypes.LOGOUT,
   };

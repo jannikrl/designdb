@@ -1,4 +1,4 @@
-import { axios, addTokenAsDefault, removeTokenAsDefault } from "./baseService";
+import { axios } from "./baseService";
 
 export const login = async (email, password) => {
   const params = {
@@ -18,8 +18,6 @@ export const login = async (email, password) => {
     .catch((error) => {
       throw new Error("authService login failed");
     });
-
-  addTokenAsDefault(token);
 
   return token;
 };
@@ -47,6 +45,4 @@ export const logout = async () => {
   await axios.post("/logout").catch((error) => {
     throw new Error("authService logout failed");
   });
-
-  removeTokenAsDefault();
 };
