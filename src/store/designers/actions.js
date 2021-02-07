@@ -1,11 +1,22 @@
 import * as actionTypes from "./actionTypes";
 import * as designerService from "../../services/designerService";
 
-// TODO Add try catch
 export const fetchDesigners = () => {
   return async (dispatch) => {
-    const designers = await designerService.fetchDesigners();
-    dispatch(fetchDesignersSuccess(designers));
+    dispatch(fetchDesignersStart());
+    try {
+      const designers = await designerService.fetchDesigners();
+      dispatch(fetchDesignersSuccess(designers));
+    } catch {
+      dispatch(fetchDesignersFailure());
+    }
+  };
+};
+
+export const fetchDesignersStart = (designers) => {
+  return {
+    type: actionTypes.FETCH_DESIGNERS_START,
+    designers: designers,
   };
 };
 
@@ -13,5 +24,11 @@ export const fetchDesignersSuccess = (designers) => {
   return {
     type: actionTypes.FETCH_DESIGNERS_SUCCESS,
     designers: designers,
+  };
+};
+
+export const fetchDesignersFailure = () => {
+  return {
+    type: actionTypes.FETCH_DESIGNERS_FAILURE,
   };
 };
