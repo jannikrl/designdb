@@ -1,11 +1,11 @@
 import * as actionTypes from "./actionTypes";
-import * as designerService from "../../services/designerService";
+import * as manufacturerService from "../../services/manufacturerService";
 
 export const fetchManufacturers = () => {
   return async (dispatch) => {
     dispatch(fetchManufacturersStart());
     try {
-      const manufacturers = await designerService.fetchManufacturers();
+      const manufacturers = await manufacturerService.fetchManufacturers();
       dispatch(fetchManufacturersSuccess(manufacturers));
     } catch {
       dispatch(fetchManufacturersFailure());
