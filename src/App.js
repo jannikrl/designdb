@@ -15,7 +15,7 @@ import * as authSelectors from "./store/auth/selectors";
 import * as authActions from "./store/auth/actions";
 
 const Design = lazy(() => import("./containers/Design/Design"));
-const DesignEdit = lazy(() => import("./containers/Design/Edit/Edit"));
+const DesignEdit = lazy(() => import("./containers/DesignEdit/DesignEdit"));
 const Designer = lazy(() => import("./containers/Designer/Designer"));
 const Manufacturer = lazy(() =>
   import("./containers/Manufacturer/Manufacturer")

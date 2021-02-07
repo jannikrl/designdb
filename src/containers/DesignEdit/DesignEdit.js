@@ -3,14 +3,14 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
-import * as designActions from "../../../store/design/actions";
-import * as designSelectors from "../../../store/design/selectors";
+import * as designActions from "../../store/design/actions";
+import * as designSelectors from "../../store/design/selectors";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Required"),
 });
 
-const Edit = (props) => {
+const DesignEdit = (props) => {
   const [didSubmit, setDidSubmit] = useState(false);
   const design = useSelector((state) => designSelectors.getDesign(state));
   const isLoading = useSelector((state) => designSelectors.isLoading(state));
@@ -52,9 +52,6 @@ const Edit = (props) => {
   const redirect = isSuccess && <Redirect to={`/design/${id}`} />;
 
   const didFetchDesign = design && design.id === +id;
-
-  // TODO use formik hook https://formik.org/docs/api/useFormik
-  // TODO Move out in folder structure to /containers
 
   return (
     <div>
@@ -112,4 +109,4 @@ const Edit = (props) => {
   );
 };
 
-export default Edit;
+export default DesignEdit;
