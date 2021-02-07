@@ -40,7 +40,7 @@ export const updateDesign = (values) => {
         const design = await designService.updateDesign(values);
         dispatch(updateDesignSuccess(design));
       } catch (error) {
-        dispatch(updateDesignFailure(error));
+        dispatch(updateDesignFailure(error.message));
       }
     };
   };
