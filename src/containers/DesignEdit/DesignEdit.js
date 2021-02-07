@@ -68,10 +68,10 @@ const DesignEdit = (props) => {
 
   const initialValues = {
     name: name,
-    image: image,
-    model: model,
-    yearFrom: yearFrom,
-    yearTo: yearTo,
+    image: image || "",
+    model: model || "",
+    yearFrom: yearFrom || "",
+    yearTo: yearTo || "",
     designerId: designerId,
     manufacturerId: manufacturerId,
   };
@@ -95,25 +95,25 @@ const DesignEdit = (props) => {
           {({ errors, touched }) => (
             <Form>
               <div>
-                <label for="name">name</label>
+                <label htmlFor="name">name</label>
                 <Field name="name" type="text" id="name"></Field>
                 {errors.name && touched.name ? <i>{errors.name}</i> : null}
               </div>
 
               <div>
-                <label for="image">image</label>
+                <label htmlFor="image">image</label>
                 <Field name="image" type="text" id="image"></Field>
                 {errors.image && touched.image ? <i>{errors.image}</i> : null}
               </div>
 
               <div>
-                <label for="model">model</label>
+                <label htmlFor="model">model</label>
                 <Field name="model" type="text" id="model"></Field>
                 {errors.model && touched.model ? <i>{errors.model}</i> : null}
               </div>
 
               <div>
-                <label for="yearFrom">yearFrom</label>
+                <label htmlFor="yearFrom">yearFrom</label>
                 <Field name="yearFrom" type="text" id="yearFrom"></Field>
                 {errors.yearFrom && touched.yearFrom ? (
                   <i>{errors.yearFrom}</i>
@@ -121,7 +121,7 @@ const DesignEdit = (props) => {
               </div>
 
               <div>
-                <label for="yearTo">yearTo</label>
+                <label htmlFor="yearTo">yearTo</label>
                 <Field name="yearTo" type="text" id="yearTo"></Field>
                 {errors.yearTo && touched.yearTo ? (
                   <i>{errors.yearTo}</i>
@@ -131,7 +131,7 @@ const DesignEdit = (props) => {
               <div>
                 <Field as="select" name="designerId">
                   {designers.map((designer) => (
-                    <option value={designer.id}>{designer.name}</option>
+                    <option value={designer.id} key={designer.id}>{designer.name}</option>
                   ))}
                 </Field>
               </div>
@@ -139,7 +139,7 @@ const DesignEdit = (props) => {
               <div>
                 <Field as="select" name="manufacturerId">
                   {manufacturers.map((manufacturer) => (
-                    <option value={manufacturer.id}>{manufacturer.name}</option>
+                    <option value={manufacturer.id} key={manufacturer.id}>{manufacturer.name}</option>
                   ))}
                 </Field>
               </div>
