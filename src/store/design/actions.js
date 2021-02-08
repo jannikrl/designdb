@@ -1,4 +1,5 @@
 import * as designService from "../../services/designService";
+import * as imageService from '../../services/imageService';
 import * as actionTypes from "./actionTypes";
 
 export const fetchDesign = (id) => {
@@ -37,6 +38,8 @@ export const updateDesign = (values) => {
     return async (dispatch) => {
       dispatch(updateDesignStart());
       try {
+        const image = await imageService.uploadImage(values.imageFile);
+        values.image = image;
         const design = await designService.updateDesign(values);
         dispatch(updateDesignSuccess(design));
       } catch (error) {

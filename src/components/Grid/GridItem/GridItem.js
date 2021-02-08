@@ -3,7 +3,7 @@ import * as styles from './GridItem.module.scss';
 
 const GridItem = (props) => (
     <div className={styles.gridItem}>
-        <img src={props.image} alt="" />
+        <img src={process.env.REACT_APP_IMAGE_URL + "/" + props.image} alt="" />
     </div>
 )
 

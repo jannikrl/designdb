@@ -48,7 +48,7 @@ const Design = (props) => {
 
         <h2>{name}</h2>
 
-        {image && <img src={image} alt={name} />}
+        {image && <img src={process.env.REACT_APP_IMAGE_URL + "/" + image} alt={name} />}
 
         {model && (
           <p>

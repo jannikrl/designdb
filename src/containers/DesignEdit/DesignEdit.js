@@ -16,15 +16,18 @@ const schema = Yup.object().shape({
 
 const DesignEdit = (props) => {
   const [didSubmit, setDidSubmit] = useState(false);
+  const [imagePreview, setImagePreview] = useState("");
   const design = useSelector((state) => designSelectors.getDesign(state));
+  const designError = useSelector((state) => designSelectors.getError(state));
+  const designIsLoading = useSelector((state) =>
+    designSelectors.isLoading(state)
+  );
   const designers = useSelector((state) =>
     designersSelectors.getDesigners(state)
   );
   const manufacturers = useSelector((state) =>
     manufacturersSelectors.getManufacturers(state)
   );
-  const isLoading = useSelector((state) => designSelectors.isLoading(state));
-  const error = useSelector((state) => designSelectors.getError(state));
 
   const dispatch = useDispatch();
 
@@ -68,7 +71,6 @@ const DesignEdit = (props) => {
 
   const initialValues = {
     name: name,
-    image: image || "",
     model: model || "",
     yearFrom: yearFrom || "",
     yearTo: yearTo || "",
@@ -76,9 +78,11 @@ const DesignEdit = (props) => {
     manufacturerId: manufacturerId,
   };
 
-  const isSuccess = didSubmit && !isLoading && !error;
+  const isSuccess = didSubmit && !designIsLoading && !designError;
   const redirect = isSuccess && <Redirect to={`/design/${id}`} />;
-  const errorMessage = didSubmit && error && <p>Something went wrong, try again</p>
+  const errorMessage = didSubmit && designError && (
+    <p>Something went wrong, try again</p>
+  );
 
   const didFetchDesign = design && design.id === +id;
 
@@ -92,7 +96,7 @@ const DesignEdit = (props) => {
           validationSchema={schema}
           onSubmit={(values) => submitHandler(values)}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, setFieldValue }) => (
             <Form>
               <div>
                 <label htmlFor="name">name</label>
@@ -101,9 +105,32 @@ const DesignEdit = (props) => {
               </div>
 
               <div>
-                <label htmlFor="image">image</label>
-                <Field name="image" type="text" id="image"></Field>
-                {errors.image && touched.image ? <i>{errors.image}</i> : null}
+                <div>
+                  {!imagePreview && image && (
+                    <img
+                      height="200"
+                      src={process.env.REACT_APP_IMAGE_URL + "/" + image}
+                      alt=""
+                    />
+                  )}
+                  {imagePreview && (
+                    <img
+                      height="200"
+                      src={imagePreview}
+                      alt=""
+                    />
+                  )}
+                </div>
+                <input
+                  id="image"
+                  name="imageFile"
+                  type="file"
+                  onChange={(event) => {
+                    const imageFile = event.currentTarget.files[0];
+                    setFieldValue("imageFile", imageFile);
+                    setImagePreview(window.URL.createObjectURL(imageFile));
+                  }}
+                />
               </div>
 
               <div>
@@ -131,7 +158,9 @@ const DesignEdit = (props) => {
               <div>
                 <Field as="select" name="designerId">
                   {designers.map((designer) => (
-                    <option value={designer.id} key={designer.id}>{designer.name}</option>
+                    <option value={designer.id} key={designer.id}>
+                      {designer.name}
+                    </option>
                   ))}
                 </Field>
               </div>
@@ -139,7 +168,9 @@ const DesignEdit = (props) => {
               <div>
                 <Field as="select" name="manufacturerId">
                   {manufacturers.map((manufacturer) => (
-                    <option value={manufacturer.id} key={manufacturer.id}>{manufacturer.name}</option>
+                    <option value={manufacturer.id} key={manufacturer.id}>
+                      {manufacturer.name}
+                    </option>
                   ))}
                 </Field>
               </div>
