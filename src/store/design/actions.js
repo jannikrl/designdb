@@ -1,5 +1,5 @@
 import * as designService from "../../services/designService";
-import * as imageService from '../../services/imageService';
+import * as imageService from "../../services/imageService";
 import * as actionTypes from "./actionTypes";
 
 export const fetchDesign = (id) => {
@@ -35,38 +35,40 @@ export const fetchDesignFailure = (error) => {
 };
 
 export const updateDesign = (values) => {
-    return async (dispatch) => {
-      dispatch(updateDesignStart());
-      try {
+  return async (dispatch) => {
+    dispatch(updateDesignStart());
+    try {
+      if (values.imageFile) {
         const image = await imageService.uploadImage(values.imageFile);
         values.image = image;
-        const design = await designService.updateDesign(values);
-        dispatch(updateDesignSuccess(design));
-      } catch (error) {
-        dispatch(updateDesignFailure(error.message));
       }
-    };
+      const design = await designService.updateDesign(values);
+      dispatch(updateDesignSuccess(design));
+    } catch (error) {
+      dispatch(updateDesignFailure(error.message));
+    }
   };
+};
 
 export const updateDesignStart = () => {
-    return {
-      type: actionTypes.UPDATE_DESIGN_START,
-    };
+  return {
+    type: actionTypes.UPDATE_DESIGN_START,
   };
-  
-  export const updateDesignSuccess = (design) => {
-    return {
-      type: actionTypes.UPDATE_DESIGN_SUCCESS,
-      design: design,
-    };
+};
+
+export const updateDesignSuccess = (design) => {
+  return {
+    type: actionTypes.UPDATE_DESIGN_SUCCESS,
+    design: design,
   };
-  
-  export const updateDesignFailure = (error) => {
-    return {
-      type: actionTypes.UPDATE_DESIGN_FAILURE,
-      error: error,
-    };
+};
+
+export const updateDesignFailure = (error) => {
+  return {
+    type: actionTypes.UPDATE_DESIGN_FAILURE,
+    error: error,
   };
+};
 
 export const reset = () => {
   return {

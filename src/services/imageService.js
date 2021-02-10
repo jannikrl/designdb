@@ -18,8 +18,3 @@ export const uploadImage = async (imageFile) => {
 
   return image;
 };
-
-
-export const deleteImage = (image) => {
-
-}

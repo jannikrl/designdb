@@ -9,6 +9,7 @@ import * as designersActions from "../../store/designers/actions";
 import * as designersSelectors from "../../store/designers/selectors";
 import * as manufacturersActions from "../../store/manufacturers/actions";
 import * as manufacturersSelectors from "../../store/manufacturers/selectors";
+import ImageUpload from "../../components/UI/ImageUpload";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Required"),
@@ -67,7 +68,9 @@ const DesignEdit = (props) => {
     yearTo,
     designerId,
     manufacturerId,
+    isFeatured,
   } = design ? design : {};
+
 
   const initialValues = {
     name: name,
@@ -76,6 +79,7 @@ const DesignEdit = (props) => {
     yearTo: yearTo || "",
     designerId: designerId,
     manufacturerId: manufacturerId,
+    isFeatured: isFeatured,
   };
 
   const isSuccess = didSubmit && !designIsLoading && !designError;
@@ -104,34 +108,15 @@ const DesignEdit = (props) => {
                 {errors.name && touched.name ? <i>{errors.name}</i> : null}
               </div>
 
-              <div>
-                <div>
-                  {!imagePreview && image && (
-                    <img
-                      height="200"
-                      src={process.env.REACT_APP_IMAGE_URL + "/" + image}
-                      alt=""
-                    />
-                  )}
-                  {imagePreview && (
-                    <img
-                      height="200"
-                      src={imagePreview}
-                      alt=""
-                    />
-                  )}
-                </div>
-                <input
-                  id="image"
-                  name="imageFile"
-                  type="file"
-                  onChange={(event) => {
-                    const imageFile = event.currentTarget.files[0];
-                    setFieldValue("imageFile", imageFile);
-                    setImagePreview(window.URL.createObjectURL(imageFile));
-                  }}
-                />
-              </div>
+              <ImageUpload
+                initialImage={image}
+                imagePreview={imagePreview}
+                onChange={(event) => {
+                  const imageFile = event.currentTarget.files[0];
+                  setFieldValue("imageFile", imageFile);
+                  setImagePreview(window.URL.createObjectURL(imageFile));
+                }}
+              />
 
               <div>
                 <label htmlFor="model">model</label>
@@ -173,6 +158,13 @@ const DesignEdit = (props) => {
                     </option>
                   ))}
                 </Field>
+              </div>
+
+              <div>
+                <label>
+                  <Field type="checkbox" name="isFeatured" />
+                  Is featured
+                </label>
               </div>
 
               <div>
