@@ -47,24 +47,24 @@ export const createManufacturer = (values) => {
 };
 
 const updateManufacturerStart = () => {
-    return {
-      type: actionTypes.UPDATE_MANUFACTURER_START,
-    };
+  return {
+    type: actionTypes.UPDATE_MANUFACTURER_START,
   };
-  
-  const updateManufacturerSuccess = (manufacturer) => {
-    return {
-      type: actionTypes.UPDATE_MANUFACTURER_SUCCESS,
-      manufacturer: manufacturer,
-    };
+};
+
+const updateManufacturerSuccess = (manufacturer) => {
+  return {
+    type: actionTypes.UPDATE_MANUFACTURER_SUCCESS,
+    manufacturer: manufacturer,
   };
-  
-  const updateManufacturerFailure = (error) => {
-    return {
-      type: actionTypes.UPDATE_MANUFACTURER_FAILURE,
-      error: error,
-    };
+};
+
+const updateManufacturerFailure = (error) => {
+  return {
+    type: actionTypes.UPDATE_MANUFACTURER_FAILURE,
+    error: error,
   };
+};
 
 const fetchManufacturerStart = () => {
   return {

@@ -19,6 +19,12 @@ const DesignEdit = lazy(() => import("./containers/DesignEdit/DesignEdit"));
 const DesignCreate = lazy(() =>
   import("./containers/DesignCreate/DesignCreate")
 );
+const DesignerCreate = lazy(() =>
+  import("./containers/DesignerCreate/DesignerCreate")
+);
+const DesignerEdit = lazy(() =>
+  import("./containers/DesignerEdit/DesignerEdit")
+);
 const Designer = lazy(() => import("./containers/Designer/Designer"));
 const Manufacturer = lazy(() =>
   import("./containers/Manufacturer/Manufacturer")
@@ -54,6 +60,12 @@ const App = (props) => {
           </Route>
           <Route path="/design/:id">
             <Design />
+          </Route>
+          <Route path="/designer/create">
+            <DesignerCreate />
+          </Route>
+          <Route path="/designer/:id/edit">
+            <DesignerEdit />
           </Route>
           <Route path="/designer/:id">
             <Designer />

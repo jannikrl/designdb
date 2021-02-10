@@ -2,11 +2,15 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as designerSelectors from "../../store/designer/selectors";
 import * as designerActions from "../../store/designer/actions";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import * as classes from "./Designer.module.scss";
+import * as authSelectors from "../../store/auth/selectors";
 
 const Designer = (props) => {
   const designer = useSelector((store) => designerSelectors.getDesigner(store));
+  const isAuthenticated = useSelector((state) =>
+    authSelectors.isAuthenticated(state)
+  );
 
   const dispatch = useDispatch();
 
@@ -30,8 +34,15 @@ const Designer = (props) => {
   return (
     designer && (
       <div className={classes.designer}>
+        {isAuthenticated && (
+          <div>
+            <Link to={`/designer/${id}/edit`}>Edit</Link>
+          </div>
+        )}
+
         <h2>{name}</h2>
-        {image && <img src={image} alt={name} />}
+
+        {image && <img src={process.env.REACT_APP_IMAGE_URL + "/" + image} alt={name} />}
         {bornYear && (
           <p>
             <strong>Born</strong> {bornYear}

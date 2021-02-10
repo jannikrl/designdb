@@ -1,8 +1,4 @@
-import {
-  FETCH_DESIGNER_FAILURE,
-  FETCH_DESIGNER_START,
-  FETCH_DESIGNER_SUCCESS,
-} from "./actionTypes";
+import * as actionTypes from "./actionTypes";
 
 const initialState = {
   designer: null,
@@ -34,14 +30,44 @@ const fetchDesignerFailure = (state, action) => {
   };
 };
 
+const updateDesignerStart = (state, action) => {
+  return {
+    ...state,
+    loading: true,
+    error: null,
+  };
+};
+
+const updateDesignerSuccess = (state, action) => {
+  return {
+    ...state,
+    designer: action.designer,
+    loading: false,
+  };
+};
+
+const updateDesignerFailure = (state, action) => {
+  return {
+    ...state,
+    loading: false,
+    error: action.error,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_DESIGNER_START:
+    case actionTypes.FETCH_DESIGNER_START:
       return fetchDesignerStart(state, action);
-    case FETCH_DESIGNER_SUCCESS:
+    case actionTypes.FETCH_DESIGNER_SUCCESS:
       return fetchDesignerSuccess(state, action);
-    case FETCH_DESIGNER_FAILURE:
+    case actionTypes.FETCH_DESIGNER_FAILURE:
       return fetchDesignerFailure(state, action);
+    case actionTypes.UPDATE_DESIGNER_START:
+      return updateDesignerStart(state, action);
+    case actionTypes.UPDATE_DESIGNER_SUCCESS:
+      return updateDesignerSuccess(state, action);
+    case actionTypes.UPDATE_DESIGNER_FAILURE:
+      return updateDesignerFailure(state, action);
     default:
       return state;
   }
