@@ -1,24 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
-const ImageUpload = (props) => (
-  <div>
+const ImageUpload = ({ onChange, initialImage }) => {
+  const [imagePreview, setImagePreview] = useState("");
+
+  const changeHandler = (event) => {
+    const imageFile = event.currentTarget.files[0];
+    setImagePreview(window.URL.createObjectURL(imageFile));
+    onChange(imageFile);
+  };
+
+  return (
     <div>
-      {!props.imagePreview && props.initialImage && (
-        <img
-          height="200"
-          src={process.env.REACT_APP_IMAGE_URL + "/" + props.initialImage}
-          alt=""
-        />
-      )}
-      {props.imagePreview && <img height="200" src={props.imagePreview} alt="" />}
+      <div>
+        {!imagePreview && initialImage && (
+          <img
+            height="200"
+            src={process.env.REACT_APP_IMAGE_URL + "/" + initialImage}
+            alt=""
+          />
+        )}
+        {imagePreview && <img height="200" src={imagePreview} alt="" />}
+      </div>
+      <input
+        id="image"
+        name="imageFile"
+        type="file"
+        onChange={(event) => changeHandler(event)}
+      />
     </div>
-    <input
-      id="image"
-      name="imageFile"
-      type="file"
-      onChange={(event) => props.onChange(event)}
-    />
-  </div>
-);
+  );
+};
 
 export default ImageUpload;
