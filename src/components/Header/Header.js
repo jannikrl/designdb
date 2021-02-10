@@ -8,7 +8,8 @@ const Header = (props) => {
   ) : null;
   const logoutLink = props.isAuthenticated ? (
     <div>
-      <Link to="/design/create">New design</Link>
+      <Link to="/design/create">New design</Link> 
+      <Link to="/manufacturer/create">New manufacturer</Link> 
       <Link to="/logout">Logout</Link>
     </div>
   ) : null;

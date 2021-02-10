@@ -16,10 +16,18 @@ import * as authActions from "./store/auth/actions";
 
 const Design = lazy(() => import("./containers/Design/Design"));
 const DesignEdit = lazy(() => import("./containers/DesignEdit/DesignEdit"));
-const DesignCreate = lazy(() => import("./containers/DesignCreate/DesignCreate"));
+const DesignCreate = lazy(() =>
+  import("./containers/DesignCreate/DesignCreate")
+);
 const Designer = lazy(() => import("./containers/Designer/Designer"));
 const Manufacturer = lazy(() =>
   import("./containers/Manufacturer/Manufacturer")
+);
+const ManufacturerEdit = lazy(() =>
+  import("./containers/ManufacturerEdit/ManufacturerEdit")
+);
+const ManufacturerCreate = lazy(() =>
+  import("./containers/ManufacturerCreate/ManufacturerCreate")
 );
 
 const App = (props) => {
@@ -49,6 +57,12 @@ const App = (props) => {
           </Route>
           <Route path="/designer/:id">
             <Designer />
+          </Route>
+          <Route path="/manufacturer/create">
+            <ManufacturerCreate />
+          </Route>
+          <Route path="/manufacturer/:id/edit">
+            <ManufacturerEdit />
           </Route>
           <Route path="/manufacturer/:id">
             <Manufacturer />

@@ -17,7 +17,7 @@ export const createDesign = async (values) => {
     .post('/designs', keysToSnakeCase(values))
     .then((response) => keysToCamelCase(response.data))
     .catch((error) => {
-      throw new Error("designService updateDesign failed");
+      throw new Error("designService createDesign failed");
     });
 
   return design;
