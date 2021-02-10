@@ -12,6 +12,17 @@ export const fetchDesign = async (id) => {
   return design;
 };
 
+export const createDesign = async (values) => {
+  const design = await axios
+    .post('/designs', keysToSnakeCase(values))
+    .then((response) => keysToCamelCase(response.data))
+    .catch((error) => {
+      throw new Error("designService updateDesign failed");
+    });
+
+  return design;
+};
+
 export const updateDesign = async (values) => {
   const design = await axios
     .put(`/designs/${values.id}`, keysToSnakeCase(values))

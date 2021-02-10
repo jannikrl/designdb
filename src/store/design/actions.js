@@ -70,6 +70,22 @@ export const updateDesignFailure = (error) => {
   };
 };
 
+export const createDesign = (values) => {
+  return async (dispatch) => {
+    dispatch(updateDesignStart());
+    try {
+      if (values.imageFile) {
+        const image = await imageService.uploadImage(values.imageFile);
+        values.image = image;
+      }
+      const design = await designService.createDesign(values);
+      dispatch(updateDesignSuccess(design));
+    } catch (error) {
+      dispatch(updateDesignFailure(error.message));
+    }
+  };
+};
+
 export const reset = () => {
   return {
     type: actionTypes.RESET,

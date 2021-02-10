@@ -16,6 +16,7 @@ import * as authActions from "./store/auth/actions";
 
 const Design = lazy(() => import("./containers/Design/Design"));
 const DesignEdit = lazy(() => import("./containers/DesignEdit/DesignEdit"));
+const DesignCreate = lazy(() => import("./containers/DesignCreate/DesignCreate"));
 const Designer = lazy(() => import("./containers/Designer/Designer"));
 const Manufacturer = lazy(() =>
   import("./containers/Manufacturer/Manufacturer")
@@ -37,6 +38,9 @@ const App = (props) => {
       <Header isAuthenticated={isAuthenticated} />
       <Suspense fallback={<div></div>}>
         <Switch>
+          <Route path="/design/create">
+            <DesignCreate />
+          </Route>
           <Route path="/design/:id/edit">
             <DesignEdit />
           </Route>

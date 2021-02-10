@@ -7,7 +7,10 @@ const Header = (props) => {
     <Link to="/login">Login</Link>
   ) : null;
   const logoutLink = props.isAuthenticated ? (
-    <Link to="/logout">Logout</Link>
+    <div>
+      <Link to="/design/create">New design</Link>
+      <Link to="/logout">Logout</Link>
+    </div>
   ) : null;
 
   return (
