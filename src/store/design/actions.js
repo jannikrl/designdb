@@ -14,26 +14,6 @@ export const fetchDesign = (id) => {
   };
 };
 
-export const fetchDesignStart = () => {
-  return {
-    type: actionTypes.FETCH_DESIGN_START,
-  };
-};
-
-export const fetchDesignSuccess = (design) => {
-  return {
-    type: actionTypes.FETCH_DESIGN_SUCCESS,
-    design: design,
-  };
-};
-
-export const fetchDesignFailure = (error) => {
-  return {
-    type: actionTypes.FETCH_DESIGN_FAILURE,
-    error: error,
-  };
-};
-
 export const updateDesign = (values) => {
   return async (dispatch) => {
     dispatch(updateDesignStart());
@@ -47,26 +27,6 @@ export const updateDesign = (values) => {
     } catch (error) {
       dispatch(updateDesignFailure(error.message));
     }
-  };
-};
-
-export const updateDesignStart = () => {
-  return {
-    type: actionTypes.UPDATE_DESIGN_START,
-  };
-};
-
-export const updateDesignSuccess = (design) => {
-  return {
-    type: actionTypes.UPDATE_DESIGN_SUCCESS,
-    design: design,
-  };
-};
-
-export const updateDesignFailure = (error) => {
-  return {
-    type: actionTypes.UPDATE_DESIGN_FAILURE,
-    error: error,
   };
 };
 
@@ -89,5 +49,45 @@ export const createDesign = (values) => {
 export const reset = () => {
   return {
     type: actionTypes.RESET,
+  };
+};
+
+const fetchDesignStart = () => {
+  return {
+    type: actionTypes.FETCH_DESIGN_START,
+  };
+};
+
+const fetchDesignSuccess = (design) => {
+  return {
+    type: actionTypes.FETCH_DESIGN_SUCCESS,
+    design: design,
+  };
+};
+
+const fetchDesignFailure = (error) => {
+  return {
+    type: actionTypes.FETCH_DESIGN_FAILURE,
+    error: error,
+  };
+};
+
+const updateDesignStart = () => {
+  return {
+    type: actionTypes.UPDATE_DESIGN_START,
+  };
+};
+
+const updateDesignSuccess = (design) => {
+  return {
+    type: actionTypes.UPDATE_DESIGN_SUCCESS,
+    design: design,
+  };
+};
+
+const updateDesignFailure = (error) => {
+  return {
+    type: actionTypes.UPDATE_DESIGN_FAILURE,
+    error: error,
   };
 };

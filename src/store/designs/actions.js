@@ -31,15 +31,32 @@ export const fetchDesigns = () => {
     const state = getState();
     const filterOptions = gridSelectors.getFilterOptions(state);
 
-    const designs = await designService.fetchDesigns(filterOptions);
-    
-    dispatch(fetchDesignsSuccess(designs));
+    dispatch(fetchDesignsStart());
+    try {
+      const designs = await designService.fetchDesigns(filterOptions);
+      dispatch(fetchDesignsSuccess(designs));
+    } catch (error) {
+      dispatch(fetchDesignsFailure(error));
+    }
   };
 };
 
-export const fetchDesignsSuccess = (designs) => {
+const fetchDesignsStart = () => {
+  return {
+    type: actionTypes.FETCH_DESIGNS_START,
+  };
+};
+
+const fetchDesignsSuccess = (designs) => {
   return {
     type: actionTypes.FETCH_DESIGNS_SUCCESS,
     designs: designs,
+  };
+};
+
+const fetchDesignsFailure = (error) => {
+  return {
+    type: actionTypes.FETCH_DESIGNS_FAILURE,
+    error: error,
   };
 };

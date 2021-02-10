@@ -13,21 +13,21 @@ export const fetchDesigners = () => {
   };
 };
 
-export const fetchDesignersStart = (designers) => {
+const fetchDesignersStart = (designers) => {
   return {
     type: actionTypes.FETCH_DESIGNERS_START,
     designers: designers,
   };
 };
 
-export const fetchDesignersSuccess = (designers) => {
+const fetchDesignersSuccess = (designers) => {
   return {
     type: actionTypes.FETCH_DESIGNERS_SUCCESS,
     designers: designers,
   };
 };
 
-export const fetchDesignersFailure = () => {
+const fetchDesignersFailure = () => {
   return {
     type: actionTypes.FETCH_DESIGNERS_FAILURE,
   };
