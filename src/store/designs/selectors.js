@@ -13,3 +13,7 @@ export const getShowFeatured = (state) => {
 export const getSelectedDesigner = (state) => {
     return state.designs.filterOptions.designer
 }
+
+export const getSelectedManufacturer = (state) => {
+    return state.designs.filterOptions.manufacturer
+}

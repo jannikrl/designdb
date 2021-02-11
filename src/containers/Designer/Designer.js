@@ -31,8 +31,10 @@ const Designer = (props) => {
     diedCountry,
   } = designer ? designer : {};
 
+  const didFetchDesigner = designer && designer.id === +id;
+
   return (
-    designer && (
+    didFetchDesigner && (
       <div className={classes.designer}>
         {isAuthenticated && (
           <div>

@@ -26,6 +26,18 @@ export const selectDesigner = (id) => {
   };
 };
 
+export const selectManufacturer = (id) => {
+  const action = {
+    type: actionTypes.SELECT_MANUFACTURER,
+    id: id,
+  };
+
+  return (dispatch) => {
+    dispatch(action);
+    dispatch(fetchDesigns());
+  };
+};
+
 export const fetchDesigns = () => {
   return async (dispatch, getState) => {
     const state = getState();
