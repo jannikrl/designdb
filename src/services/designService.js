@@ -36,7 +36,6 @@ export const updateDesign = async (values) => {
 
 export const fetchDesigns = async (filterOptions) => {
   const queryParams = mapToQueryParams(filterOptions);
-  console.log(queryParams);
   const queryString = toQueryString(queryParams);
   const designs = await axios
     .get(`/designs?${queryString}`)
