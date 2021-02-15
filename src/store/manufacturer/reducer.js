@@ -54,6 +54,30 @@ const updateManufacturerFailure = (state, action) => {
   };
 };
 
+const createManufacturerStart = (state, action) => {
+  return {
+    ...state,
+    loading: true,
+    error: null,
+  };
+};
+
+const createManufacturerSuccess = (state, action) => {
+  return {
+    ...state,
+    manufacturer: action.manufacturer,
+    loading: false,
+  };
+};
+
+const createManufacturerFailure = (state, action) => {
+  return {
+    ...state,
+    loading: false,
+    error: action.error,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_MANUFACTURER_START:
@@ -68,6 +92,12 @@ const reducer = (state = initialState, action) => {
       return updateManufacturerSuccess(state, action);
     case actionTypes.UPDATE_MANUFACTURER_FAILURE:
       return updateManufacturerFailure(state, action);
+    case actionTypes.CREATE_MANUFACTURER_START:
+      return createManufacturerStart(state, action);
+    case actionTypes.CREATE_MANUFACTURER_SUCCESS:
+      return createManufacturerSuccess(state, action);
+    case actionTypes.CREATE_MANUFACTURER_FAILURE:
+      return createManufacturerFailure(state, action);
     default:
       return state;
   }

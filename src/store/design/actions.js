@@ -32,16 +32,16 @@ export const updateDesign = (values) => {
 
 export const createDesign = (values) => {
   return async (dispatch) => {
-    dispatch(updateDesignStart());
+    dispatch(createDesignStart());
     try {
       if (values.imageFile) {
         const image = await imageService.uploadImage(values.imageFile);
         values.image = image;
       }
       const design = await designService.createDesign(values);
-      dispatch(updateDesignSuccess(design));
+      dispatch(createDesignSuccess(design));
     } catch (error) {
-      dispatch(updateDesignFailure(error.message));
+      dispatch(createDesignFailure(error.message));
     }
   };
 };
@@ -91,3 +91,24 @@ const updateDesignFailure = (error) => {
     error: error,
   };
 };
+
+const createDesignStart = () => {
+    return {
+      type: actionTypes.CREATE_DESIGN_START,
+    };
+  };
+  
+  const createDesignSuccess = (design) => {
+    return {
+      type: actionTypes.CREATE_DESIGN_SUCCESS,
+      design: design,
+    };
+  };
+  
+  const createDesignFailure = (error) => {
+    return {
+      type: actionTypes.CREATE_DESIGN_FAILURE,
+      error: error,
+    };
+  };
+  

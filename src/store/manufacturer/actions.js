@@ -32,17 +32,37 @@ export const updateManufacturer = (values) => {
 
 export const createManufacturer = (values) => {
   return async (dispatch) => {
-    dispatch(updateManufacturerStart());
+    dispatch(createManufacturerStart());
     try {
       if (values.imageFile) {
         const image = await imageService.uploadImage(values.imageFile);
         values.image = image;
       }
       const manufacturer = await manufacturerService.createManufacturer(values);
-      dispatch(updateManufacturerSuccess(manufacturer));
+      dispatch(createManufacturerSuccess(manufacturer));
     } catch (error) {
-      dispatch(updateManufacturerFailure(error.message));
+      dispatch(createManufacturerFailure(error.message));
     }
+  };
+};
+
+const fetchManufacturerStart = () => {
+  return {
+    type: actionTypes.FETCH_MANUFACTURER_START,
+  };
+};
+
+const fetchManufacturerSuccess = (manufacturer) => {
+  return {
+    type: actionTypes.FETCH_MANUFACTURER_SUCCESS,
+    manufacturer: manufacturer,
+  };
+};
+
+const fetchManufacturerFailure = (error) => {
+  return {
+    type: actionTypes.FETCH_MANUFACTURER_FAILURE,
+    error: error,
   };
 };
 
@@ -66,22 +86,22 @@ const updateManufacturerFailure = (error) => {
   };
 };
 
-const fetchManufacturerStart = () => {
+const createManufacturerStart = () => {
   return {
-    type: actionTypes.FETCH_MANUFACTURER_START,
+    type: actionTypes.CREATE_MANUFACTURER_START,
   };
 };
 
-const fetchManufacturerSuccess = (manufacturer) => {
+const createManufacturerSuccess = (manufacturer) => {
   return {
-    type: actionTypes.FETCH_MANUFACTURER_SUCCESS,
+    type: actionTypes.CREATE_MANUFACTURER_SUCCESS,
     manufacturer: manufacturer,
   };
 };
 
-const fetchManufacturerFailure = (error) => {
+const createManufacturerFailure = (error) => {
   return {
-    type: actionTypes.FETCH_MANUFACTURER_FAILURE,
+    type: actionTypes.CREATE_MANUFACTURER_FAILURE,
     error: error,
   };
 };

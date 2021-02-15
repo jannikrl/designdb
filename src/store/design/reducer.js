@@ -54,6 +54,30 @@ const updateDesignFailure = (state, action) => {
   };
 };
 
+const createDesignStart = (state, action) => {
+  return {
+    ...state,
+    loading: true,
+    error: null,
+  };
+};
+
+const createDesignSuccess = (state, action) => {
+  return {
+    ...state,
+    design: action.design,
+    loading: false,
+  };
+};
+
+const createDesignFailure = (state, action) => {
+  return {
+    ...state,
+    loading: false,
+    error: action.error,
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_DESIGN_START:
@@ -68,6 +92,12 @@ const reducer = (state = initialState, action) => {
       return updateDesignSuccess(state, action);
     case actionTypes.UPDATE_DESIGN_FAILURE:
       return updateDesignFailure(state, action);
+    case actionTypes.CREATE_DESIGN_START:
+      return createDesignStart(state, action);
+    case actionTypes.CREATE_DESIGN_SUCCESS:
+      return createDesignSuccess(state, action);
+    case actionTypes.CREATE_DESIGN_FAILURE:
+      return createDesignFailure(state, action);
     case actionTypes.RESET:
       return initialState;
     default:
