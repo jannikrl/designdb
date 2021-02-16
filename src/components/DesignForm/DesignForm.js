@@ -11,6 +11,7 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
   const {
     name,
     image,
+    imageReference,
     model,
     yearFrom,
     yearTo,
@@ -21,6 +22,7 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
 
   const initialValues = {
     name: name || "",
+    imageReference: imageReference || "",
     model: model || "",
     yearFrom: yearFrom || "",
     yearTo: yearTo || "",
@@ -51,13 +53,20 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
           />
 
           <div>
+            <label htmlFor="imageReference">Image reference</label>
+            <Field name="imageReference" type="text" id="imageReference"></Field>
+            <small>(link to website where it is downloaded from)</small>
+            {errors.imageReference && touched.imageReference ? <i>{errors.imageReference}</i> : null}
+          </div>
+
+          <div>
             <label htmlFor="model">Model</label>
             <Field name="model" type="text" id="model"></Field>
             {errors.model && touched.model ? <i>{errors.model}</i> : null}
           </div>
 
           <div>
-            <label htmlFor="yearFrom">Year to</label>
+            <label htmlFor="yearFrom">Year from</label>
             <Field name="yearFrom" type="text" id="yearFrom"></Field>
             {errors.yearFrom && touched.yearFrom ? (
               <i>{errors.yearFrom}</i>
@@ -65,7 +74,7 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
           </div>
 
           <div>
-            <label htmlFor="yearTo">Year from</label>
+            <label htmlFor="yearTo">Year to</label>
             <Field name="yearTo" type="text" id="yearTo"></Field>
             {errors.yearTo && touched.yearTo ? <i>{errors.yearTo}</i> : null}
           </div>
