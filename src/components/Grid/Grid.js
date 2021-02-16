@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import GridItem from "./GridItem/GridItem";
-import { CSSGrid, makeResponsive } from "react-stonecutter";
+import { CSSGrid, makeResponsive, measureItems } from "react-stonecutter";
 import * as styles from "./Grid.module.scss";
 
-const GridComponent = makeResponsive(CSSGrid, { maxWidth: 2400 });
+const GridComponent = makeResponsive(measureItems(CSSGrid), { maxWidth: 2400 });
 
 const Grid = (props) => {
   return (
     <div className={styles.grid}>
       <GridComponent
         component="ul"
-        columns={5}
+        defaultColumns={5}
         columnWidth={180}
         gutterWidth={12}
         gutterHeight={12}
