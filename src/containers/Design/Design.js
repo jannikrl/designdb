@@ -28,6 +28,7 @@ const Design = (props) => {
   const {
     name,
     image,
+    imageReference,
     model,
     yearFrom,
     yearTo,
@@ -49,6 +50,9 @@ const Design = (props) => {
         <h2>{name}</h2>
 
         {image && <img src={process.env.REACT_APP_IMAGE_URL + "/" + image} alt={name} />}
+        {imageReference && (
+            <a href={imageReference}>Source</a>
+        )}
 
         {model && (
           <p>
