@@ -9,7 +9,7 @@ import {
 
 import Home from "./containers/Home/Home";
 import Login from "./containers/Login/Login";
-import Logout from "./containers/Login/Logout/Logout";
+import Logout from "./containers/Logout/Logout";
 import Header from "./components/Header/Header";
 import * as authSelectors from "./store/auth/selectors";
 import * as authActions from "./store/auth/actions";

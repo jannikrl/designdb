@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import * as authActions from "../../../store/auth/actions";
+import * as authActions from "../../store/auth/actions";
 import { Redirect } from "react-router-dom";
 
 const Logout = props => {
