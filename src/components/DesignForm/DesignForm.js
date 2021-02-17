@@ -5,6 +5,12 @@ import ImageUpload from "../UI/ImageUpload";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Required"),
+  imageFile: Yup.mixed().when("image", {
+    is: (image) => !image,
+    then: Yup.mixed().required("Required"),
+    otherwise: Yup.mixed(),
+  }),
+  imageReference: Yup.string().required("Required"),
 });
 
 const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
@@ -22,6 +28,8 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
 
   const initialValues = {
     name: name || "",
+    image: image || "",
+    imageFile: "",
     imageReference: imageReference || "",
     model: model || "",
     yearFrom: yearFrom || "",
@@ -45,18 +53,28 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
             {errors.name && touched.name ? <i>{errors.name}</i> : null}
           </div>
 
+          <Field name="image" type="hidden" id="image"></Field>
           <ImageUpload
             initialImage={image}
             onChange={(imageFile) => {
               setFieldValue("imageFile", imageFile);
             }}
           />
+          {errors.imageFile && touched.imageFile ? (
+            <i>{errors.imageFile}</i>
+          ) : null}
 
           <div>
             <label htmlFor="imageReference">Image reference</label>
-            <Field name="imageReference" type="text" id="imageReference"></Field>
+            <Field
+              name="imageReference"
+              type="text"
+              id="imageReference"
+            ></Field>
             <small>(link to website where it is downloaded from)</small>
-            {errors.imageReference && touched.imageReference ? <i>{errors.imageReference}</i> : null}
+            {errors.imageReference && touched.imageReference ? (
+              <i>{errors.imageReference}</i>
+            ) : null}
           </div>
 
           <div>

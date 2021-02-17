@@ -10,7 +10,7 @@ const ImageUpload = ({ onChange, initialImage }) => {
   };
 
   return (
-    <div>
+    <>
       <div>
         {!imagePreview && initialImage && (
           <img
@@ -27,7 +27,7 @@ const ImageUpload = ({ onChange, initialImage }) => {
         type="file"
         onChange={(event) => changeHandler(event)}
       />
-    </div>
+    </>
   );
 };
 
