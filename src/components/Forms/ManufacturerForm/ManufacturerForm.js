@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import ImageUpload from "../UI/ImageUpload";
+import ImageUpload from "../../UI/ImageUpload";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Required"),

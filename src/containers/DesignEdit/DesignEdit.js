@@ -7,7 +7,7 @@ import * as designersActions from "../../store/designers/actions";
 import * as designersSelectors from "../../store/designers/selectors";
 import * as manufacturersActions from "../../store/manufacturers/actions";
 import * as manufacturersSelectors from "../../store/manufacturers/selectors";
-import DesignForm from "../../components/DesignForm/DesignForm";
+import DesignForm from "../../components/Forms/DesignForm/DesignForm";
 
 const DesignEdit = (props) => {
   const [didSubmit, setDidSubmit] = useState(false);

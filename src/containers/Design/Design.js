@@ -29,6 +29,7 @@ const Design = (props) => {
     name,
     image,
     imageReference,
+    alsoKnownAs,
     model,
     yearFrom,
     yearTo,
@@ -49,16 +50,23 @@ const Design = (props) => {
 
         <h2>{name}</h2>
 
-        {image && <img src={process.env.REACT_APP_IMAGE_URL + "/" + image} alt={name} />}
-        {imageReference && (
-            <a href={imageReference}>Source</a>
+        {image && (
+          <img src={process.env.REACT_APP_IMAGE_URL + "/" + image} alt={name} />
         )}
+        {imageReference && <a href={imageReference}>Source</a>}
 
         {model && (
           <p>
             <strong>Model:</strong> {model}
           </p>
         )}
+
+        {alsoKnownAs && (
+          <p>
+            <strong>Also known as:</strong> {alsoKnownAs}
+          </p>
+        )}
+
         {yearFrom && (
           <p>
             <strong>Year:</strong> {yearFrom}

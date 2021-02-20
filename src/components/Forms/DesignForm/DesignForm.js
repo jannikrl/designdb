@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
-import ImageUpload from "../UI/ImageUpload";
+import ImageUpload from "../../UI/ImageUpload";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Required"),
@@ -18,6 +18,7 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
     name,
     image,
     imageReference,
+    alsoKnownAs,
     model,
     yearFrom,
     yearTo,
@@ -32,6 +33,7 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
     imageFile: "",
     imageReference: imageReference || "",
     model: model || "",
+    alsoKnownAs: alsoKnownAs || "",
     yearFrom: yearFrom || "",
     yearTo: yearTo || "",
     designerId: designerId,
@@ -81,6 +83,12 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
             <label htmlFor="model">Model</label>
             <Field name="model" type="text" id="model"></Field>
             {errors.model && touched.model ? <i>{errors.model}</i> : null}
+          </div>
+
+          <div>
+            <label htmlFor="alsoKnownAs">Also known as</label>
+            <Field name="alsoKnownAs" type="text" id="alsoKnownAs"></Field>
+            {errors.alsoKnownAs && touched.alsoKnownAs ? <i>{errors.alsoKnownAs}</i> : null}
           </div>
 
           <div>

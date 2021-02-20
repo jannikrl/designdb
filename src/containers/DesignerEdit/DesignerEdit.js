@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as designerSelectors from "../../store/designer/selectors";
 import * as designerActions from "../../store/designer/actions";
-import DesignerForm from "../../components/DesignerForm/DesignerForm";
+import DesignerForm from "../../components/Forms/DesignerForm/DesignerForm";
 
 const DesignerEdit = (props) => {
   const [didSubmit, setDidSubmit] = useState(false);

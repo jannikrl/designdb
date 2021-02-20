@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as manufacturerSelectors from "../../store/manufacturer/selectors";
 import * as manufacturerActions from "../../store/manufacturer/actions";
-import ManufacturerForm from "../../components/ManufacturerForm/ManufacturerForm";
+import ManufacturerForm from "../../components/Forms/ManufacturerForm/ManufacturerForm";
 
 const ManufacturerEdit = (props) => {
   const [didSubmit, setDidSubmit] = useState(false);
