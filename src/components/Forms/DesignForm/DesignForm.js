@@ -10,6 +10,13 @@ const schema = Yup.object().shape({
     then: Yup.mixed().required("Required"),
     otherwise: Yup.mixed(),
   }),
+  originCountry: Yup.string().when("alsoKnownAsOriginCountry", {
+    is: (alsoKnownAsOriginCountry) => alsoKnownAsOriginCountry,
+    then: Yup.string().required(
+      "Required when 'Also known as (origin country)' is used"
+    ),
+    otherwise: Yup.string(),
+  }),
   imageReference: Yup.string().required("Required"),
 });
 
@@ -19,12 +26,19 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
     image,
     imageReference,
     alsoKnownAs,
+    alsoKnownAsOriginCountry,
+    originCountry,
     model,
     yearFrom,
     yearTo,
     designerId,
     manufacturerId,
     isFeatured,
+    manufacturer_url,
+    manufacturerDescription,
+    wikipediaUrl,
+    recognitions,
+    notes,
   } = design ? design : {};
 
   const initialValues = {
@@ -34,11 +48,18 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
     imageReference: imageReference || "",
     model: model || "",
     alsoKnownAs: alsoKnownAs || "",
+    alsoKnownAsOriginCountry: alsoKnownAsOriginCountry || "",
+    originCountry: originCountry || "",
     yearFrom: yearFrom || "",
     yearTo: yearTo || "",
     designerId: designerId,
     manufacturerId: manufacturerId,
     isFeatured: !!isFeatured,
+    manufacturer_url: manufacturer_url || "",
+    manufacturerDescription: manufacturerDescription || "",
+    wikipediaUrl: wikipediaUrl || "",
+    recognitions: recognitions || "",
+    notes: notes || "",
   };
 
   return (
@@ -54,7 +75,6 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
             <Field name="name" type="text" id="name"></Field>
             {errors.name && touched.name ? <i>{errors.name}</i> : null}
           </div>
-
           <Field name="image" type="hidden" id="image"></Field>
           <ImageUpload
             initialImage={image}
@@ -65,7 +85,6 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
           {errors.imageFile && touched.imageFile ? (
             <i>{errors.imageFile}</i>
           ) : null}
-
           <div>
             <label htmlFor="imageReference">Image reference</label>
             <Field
@@ -78,19 +97,39 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
               <i>{errors.imageReference}</i>
             ) : null}
           </div>
-
           <div>
             <label htmlFor="model">Model</label>
             <Field name="model" type="text" id="model"></Field>
             {errors.model && touched.model ? <i>{errors.model}</i> : null}
           </div>
-
           <div>
             <label htmlFor="alsoKnownAs">Also known as</label>
             <Field name="alsoKnownAs" type="text" id="alsoKnownAs"></Field>
-            {errors.alsoKnownAs && touched.alsoKnownAs ? <i>{errors.alsoKnownAs}</i> : null}
+            {errors.alsoKnownAs && touched.alsoKnownAs ? (
+              <i>{errors.alsoKnownAs}</i>
+            ) : null}
           </div>
-
+          <div>
+            <label htmlFor="alsoKnownAsOriginCountry">
+              Also known as (origin country)
+            </label>
+            <Field
+              name="alsoKnownAsOriginCountry"
+              type="text"
+              id="alsoKnownAsOriginCountry"
+            ></Field>
+            {errors.alsoKnownAsOriginCountry &&
+            touched.alsoKnownAsOriginCountry ? (
+              <i>{errors.alsoKnownAsOriginCountry}</i>
+            ) : null}
+          </div>
+          <div>
+            <label htmlFor="originCountry">Origin country</label>
+            <Field name="originCountry" type="text" id="originCountry"></Field>
+            {errors.originCountry && touched.originCountry ? (
+              <i>{errors.originCountry}</i>
+            ) : null}
+          </div>
           <div>
             <label htmlFor="yearFrom">Year from</label>
             <Field name="yearFrom" type="text" id="yearFrom"></Field>
@@ -98,12 +137,66 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
               <i>{errors.yearFrom}</i>
             ) : null}
           </div>
-
           <div>
             <label htmlFor="yearTo">Year to</label>
             <Field name="yearTo" type="text" id="yearTo"></Field>
             {errors.yearTo && touched.yearTo ? <i>{errors.yearTo}</i> : null}
           </div>
+
+          <h4>Story:</h4>
+
+          <div>
+            <label htmlFor="manufacturerDescription">
+              Manufacturer description
+            </label>
+            <Field
+              name="manufacturerDescription"
+              type="text"
+              component="textarea"
+              id="manufacturerDescription"
+            ></Field>
+            <small>(A teaser from the Wikipedia page)</small>
+            {errors.manufacturerDescription &&
+            touched.manufacturerDescription ? (
+              <i>{errors.manufacturerDescription}</i>
+            ) : null}
+          </div>
+
+          <div>
+            <label htmlFor="manufacturer_url">Manufacturer URL</label>
+            <Field
+              name="manufacturer_url"
+              type="text"
+              id="manufacturer_url"
+            ></Field>
+            <small>(link to the design on manufacturer's website)</small>
+            {errors.manufacturer_url && touched.manufacturer_url ? (
+              <i>{errors.manufacturer_url}</i>
+            ) : null}
+          </div>
+
+          <div>
+            <label htmlFor="wikipediaUrl">Wikipedia link</label>
+            <Field name="wikipediaUrl" type="text" id="wikipediaUrl"></Field>
+            <small>(Link to Wikipedia page)</small>
+            {errors.wikipediaUrl && touched.wikipediaUrl ? (
+              <i>{errors.wikipediaUrl}</i>
+            ) : null}
+          </div>
+
+          <div>
+            <label htmlFor="recognitions">Recognitions</label>
+            <Field name="recognitions" type="text" id="recognitions"></Field>
+            <small>
+              (E.g. part of exibitions on museums, mentions in books, used on
+              important TV events)
+            </small>
+            {errors.recognitions && touched.recognitions ? (
+              <i>{errors.recognitions}</i>
+            ) : null}
+          </div>
+
+          <h4>Relations:</h4>
 
           <div>
             <Field as="select" name="designerId">
@@ -117,7 +210,6 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
               ))}
             </Field>
           </div>
-
           <div>
             <Field as="select" name="manufacturerId">
               <option value="" key={0}>
@@ -131,6 +223,7 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
             </Field>
           </div>
 
+          <h4>Home page:</h4>
           <div>
             <label>
               <Field type="checkbox" name="isFeatured" />
@@ -138,6 +231,18 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
             </label>
           </div>
 
+          <h4>Notes:</h4>
+          <div>
+            <label htmlFor="notes">notes</label>
+            <Field
+              name="notes"
+              type="text"
+              component="textarea"
+              id="notes"
+            ></Field>
+            <small>(Not shown on anywhere but here)</small>
+            {errors.notes && touched.notes ? <i>{errors.notes}</i> : null}
+          </div>
           <div>
             <button type="submit">Submit</button>
           </div>
