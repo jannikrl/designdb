@@ -7,6 +7,7 @@ import * as designsSelectors from "../../store/designs/selectors";
 
 const Designs = (props) => {
   const designs = useSelector((state) => designsSelectors.getDesigns(state));
+  const isLoading = useSelector((state) => designsSelectors.isLoading(state));
 
   const dispatch = useDispatch();
 
@@ -19,12 +20,15 @@ const Designs = (props) => {
     fetchDesigns();
   }, [fetchDesigns]);
 
-  const isEmpty = !designs.length;
+  const isEmpty = !designs.length
+  const emptyMessage = isEmpty && !isLoading && <p>No designs</p>;
+  const loadingMessage = isEmpty && isLoading && <p>Loading</p>;
 
   return (
     <div>
       <Controls />
-      {isEmpty && <p>No designs</p>}
+      {emptyMessage}
+      {loadingMessage}
       <Grid data={designs} />
     </div>
   );

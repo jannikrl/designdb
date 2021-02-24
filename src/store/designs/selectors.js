@@ -2,6 +2,10 @@ export const getDesigns = (state) => {
   return state.designs.designs;
 };
 
+export const isLoading = (state) => {
+    return state.designs.loading;
+}
+
 export const getFilterOptions = (state) => {
   return state.designs.filterOptions;
 };
