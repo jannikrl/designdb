@@ -19,9 +19,12 @@ const Designs = (props) => {
     fetchDesigns();
   }, [fetchDesigns]);
 
+  const isEmpty = !designs.length;
+
   return (
     <div>
       <Controls />
+      {isEmpty && <p>No designs</p>}
       <Grid data={designs} />
     </div>
   );

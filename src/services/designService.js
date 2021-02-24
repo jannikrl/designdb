@@ -64,6 +64,10 @@ const mapToQueryParams = (filterOptions) => {
     queryParams.manufacturer = filterOptions.manufacturer;
   }
 
+  if (filterOptions.type) {
+    queryParams.type = filterOptions.type;
+  }
+
   return queryParams;
 };
 

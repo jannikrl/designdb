@@ -8,6 +8,7 @@ const initialState = {
     showFeatured: true,
     designer: null,
     manufacturer: null,
+    type: null,
   },
 };
 
@@ -51,7 +52,6 @@ const selectDesigner = (state, action) => {
     filterOptions: {
       ...state.filterOptions,
       designer: action.id,
-      showFeatured: false,
     },
   };
 };
@@ -62,6 +62,16 @@ const selectManufacturer = (state, action) => {
     filterOptions: {
       ...state.filterOptions,
       manufacturer: action.id,
+    },
+  };
+};
+
+const selectDesignType = (state, action) => {
+  return {
+    ...state,
+    filterOptions: {
+      ...state.filterOptions,
+      type: action.id,
     },
   };
 };
@@ -80,6 +90,8 @@ const reducer = (state = initialState, action) => {
       return selectDesigner(state, action);
     case actionTypes.SELECT_MANUFACTURER:
       return selectManufacturer(state, action);
+    case actionTypes.SELECT_DESIGN_TYPE:
+      return selectDesignType(state, action);
     default:
       return state;
   }

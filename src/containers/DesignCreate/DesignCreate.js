@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as designActions from "../../store/design/actions";
 import * as designSelectors from "../../store/design/selectors";
+import * as designTypesActions from "../../store/designTypes/actions";
+import * as designTypesSelectors from "../../store/designTypes/selectors";
 import * as designersActions from "../../store/designers/actions";
 import * as designersSelectors from "../../store/designers/selectors";
 import * as manufacturersActions from "../../store/manufacturers/actions";
@@ -16,6 +18,9 @@ const DesignEdit = (props) => {
   const designIsLoading = useSelector((state) =>
     designSelectors.isLoading(state)
   );
+  const designTypes = useSelector((state) =>
+    designTypesSelectors.getTypes(state)
+  );
   const designers = useSelector((state) =>
     designersSelectors.getDesigners(state)
   );
@@ -25,6 +30,10 @@ const DesignEdit = (props) => {
 
   const dispatch = useDispatch();
 
+  const fetchDesignTypes = useCallback(
+    () => dispatch(designTypesActions.fetchDesignTypes()),
+    [dispatch]
+  );
   const fetchDesigners = useCallback(
     () => dispatch(designersActions.fetchDesigners()),
     [dispatch]
@@ -36,9 +45,10 @@ const DesignEdit = (props) => {
   const createDesign = (values) => dispatch(designActions.createDesign(values));
 
   useEffect(() => {
+    fetchDesignTypes();
     fetchDesigners();
     fetchManufacturers();
-  }, [fetchDesigners, fetchManufacturers]);
+  }, [fetchDesignTypes, fetchDesigners, fetchManufacturers]);
 
   const submitHandler = (values) => {
     createDesign(values);
@@ -58,6 +68,7 @@ const DesignEdit = (props) => {
       <DesignForm
         designers={designers}
         manufacturers={manufacturers}
+        designTypes={designTypes}
         onSubmit={(values) => submitHandler(values)}
       />
     </div>

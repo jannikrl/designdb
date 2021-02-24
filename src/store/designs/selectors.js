@@ -1,19 +1,23 @@
 export const getDesigns = (state) => {
-    return state.designs.designs
-}
+  return state.designs.designs;
+};
 
 export const getFilterOptions = (state) => {
-    return state.designs.filterOptions
-}
+  return state.designs.filterOptions;
+};
 
 export const getShowFeatured = (state) => {
-    return state.designs.filterOptions.showFeatured;
-}
+  return state.designs.filterOptions.showFeatured;
+};
 
 export const getSelectedDesigner = (state) => {
-    return state.designs.filterOptions.designer
-}
+  return state.designs.filterOptions.designer;
+};
 
 export const getSelectedManufacturer = (state) => {
-    return state.designs.filterOptions.manufacturer
-}
+  return state.designs.filterOptions.manufacturer;
+};
+
+export const getSelectedDesignType = (state) => {
+  return state.designs.filterOptions.type;
+};

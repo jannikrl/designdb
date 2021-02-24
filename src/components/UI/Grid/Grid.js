@@ -11,7 +11,6 @@ const Grid = (props) => {
     <div className={styles.grid}>
       <GridComponent
         component="ul"
-        defaultColumns={5}
         columnWidth={180}
         gutterWidth={12}
         gutterHeight={12}

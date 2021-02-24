@@ -20,7 +20,7 @@ const schema = Yup.object().shape({
   imageReference: Yup.string().required("Required"),
 });
 
-const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
+const DesignForm = ({ designers, manufacturers, design, designTypes, onSubmit }) => {
   const {
     name,
     image,
@@ -39,6 +39,7 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
     wikipediaUrl,
     recognitions,
     notes,
+    typeId,
   } = design ? design : {};
 
   const initialValues = {
@@ -60,6 +61,7 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
     wikipediaUrl: wikipediaUrl || "",
     recognitions: recognitions || "",
     notes: notes || "",
+    typeId: typeId,
   };
 
   return (
@@ -200,7 +202,7 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
 
           <div>
             <Field as="select" name="designerId">
-              <option value="" key={0}>
+              <option value="placeholder" key={0}>
                 Select designer
               </option>
               {designers.map((designer) => (
@@ -212,7 +214,7 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
           </div>
           <div>
             <Field as="select" name="manufacturerId">
-              <option value="" key={0}>
+              <option value="placeholder" key={0}>
                 Select manufacturer
               </option>
               {manufacturers.map((manufacturer) => (
@@ -229,6 +231,18 @@ const DesignForm = ({ designers, manufacturers, design, onSubmit }) => {
               <Field type="checkbox" name="isFeatured" />
               Is featured
             </label>
+          </div>
+          <div>
+            <Field as="select" name="typeId">
+              <option value="placeholder" key={0}>
+                Select type
+              </option>
+              {designTypes.map((designType) => (
+                <option value={designType.id} key={designType.id}>
+                  {designType.name}
+                </option>
+              ))}
+            </Field>
           </div>
 
           <h4>Notes:</h4>
