@@ -105,7 +105,7 @@ const Design = (props) => {
           </p>
         )}
         {manufacturerDescription && (
-          <p>
+          <p className={classes.multiLine}>
             <strong>Manufacturer description:</strong> {manufacturerDescription}
           </p>
         )}
