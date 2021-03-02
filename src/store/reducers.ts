@@ -1,3 +1,4 @@
+import { combineReducers } from "redux";
 import auth from "./auth/reducer";
 import design from "./design/reducer";
 import designs from "./designs/reducer";
@@ -7,7 +8,7 @@ import designers from "./designers/reducer";
 import manufacturer from "./manufacturer/reducer";
 import manufacturers from "./manufacturers/reducer";
 
-export {
+const reducers = {
   auth,
   design,
   designs,
@@ -17,3 +18,5 @@ export {
   manufacturer,
   manufacturers,
 };
+
+export const rootReducer = combineReducers(reducers);

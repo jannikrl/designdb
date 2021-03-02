@@ -3,19 +3,28 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { createStore, combineReducers, compose, applyMiddleware } from "redux";
-import * as reducers from "./store/reducers";
+import { createStore, compose, applyMiddleware, Middleware } from "redux";
+import { rootReducer } from "./store/reducers";
+import { RootState } from "./store/types";
 import thunk from "redux-thunk";
-import "./index.css"
+import "./index.css";
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
     : compose;
 
+const thunkMiddleware: Middleware<{}, RootState> = thunk;
+
 const store = createStore(
-  combineReducers(reducers),
-  composeEnhancers(applyMiddleware(thunk))
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunkMiddleware))
 );
 
 ReactDOM.render(
