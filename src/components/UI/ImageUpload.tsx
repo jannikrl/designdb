@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 
-const ImageUpload = ({ onChange, initialImage }) => {
+type ImageUploadType = {
+  initialImage: string;
+  onChange: (imageFile: File) => void;
+};
+
+const ImageUpload: React.FC<ImageUploadType> = ({ initialImage, onChange }) => {
   const [imagePreview, setImagePreview] = useState("");
 
-  const changeHandler = (event) => {
-    const imageFile = event.currentTarget.files[0];
+  const changeHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    const files = event.currentTarget.files;
+    const imageFile = files && files[0];
+    if (!imageFile) {
+      return;
+    }
     setImagePreview(window.URL.createObjectURL(imageFile));
     onChange(imageFile);
   };

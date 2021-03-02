@@ -2,16 +2,17 @@ import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import ImageUpload from "../../UI/ImageUpload";
+import { Design } from "../../../store/design/types";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Required"),
   imageFile: Yup.mixed().when("image", {
-    is: (image) => !image,
+    is: (image: string) => !image,
     then: Yup.mixed().required("Required"),
     otherwise: Yup.mixed(),
   }),
   originCountry: Yup.string().when("alsoKnownAsOriginCountry", {
-    is: (alsoKnownAsOriginCountry) => alsoKnownAsOriginCountry,
+    is: (alsoKnownAsOriginCountry: string) => alsoKnownAsOriginCountry,
     then: Yup.string().required(
       "Required when 'Also known as (origin country)' is used"
     ),
@@ -20,8 +21,23 @@ const schema = Yup.object().shape({
   imageReference: Yup.string().required("Required"),
 });
 
-const DesignForm = ({ designers, manufacturers, design, designTypes, onSubmit }) => {
+type DesignFormProps = {
+  designers: { id: number; name: string }[]; // @Todo: Update when designer type is created
+  manufacturers: { id: number; name: string }[]; // @Todo: Update when manufacturer type is created
+  design: Design;
+  designTypes: { id: number; name: string }[]; // @Todo: Update when designTypes type is created
+  onSubmit: (values: Design) => void;
+};
+
+const DesignForm: React.FC<DesignFormProps> = ({
+  designers,
+  manufacturers,
+  design,
+  designTypes,
+  onSubmit,
+}) => {
   const {
+    id,
     name,
     image,
     imageReference,
@@ -34,15 +50,16 @@ const DesignForm = ({ designers, manufacturers, design, designTypes, onSubmit })
     designerId,
     manufacturerId,
     isFeatured,
-    manufacturer_url,
+    manufacturerUrl,
     manufacturerDescription,
     wikipediaUrl,
     recognitions,
     notes,
     typeId,
-  } = design ? design : {};
+  } = design || {};
 
-  const initialValues = {
+  const initialValues: Design = {
+    id,
     name: name || "",
     image: image || "",
     imageFile: "",
@@ -56,7 +73,7 @@ const DesignForm = ({ designers, manufacturers, design, designTypes, onSubmit })
     designerId: designerId,
     manufacturerId: manufacturerId,
     isFeatured: !!isFeatured,
-    manufacturer_url: manufacturer_url || "",
+    manufacturerUrl: manufacturerUrl || "",
     manufacturerDescription: manufacturerDescription || "",
     wikipediaUrl: wikipediaUrl || "",
     recognitions: recognitions || "",
@@ -68,7 +85,7 @@ const DesignForm = ({ designers, manufacturers, design, designTypes, onSubmit })
     <Formik
       initialValues={initialValues}
       validationSchema={schema}
-      onSubmit={(values) => onSubmit(values)}
+      onSubmit={(values: Design) => onSubmit(values)}
     >
       {({ errors, touched, setFieldValue }) => (
         <Form>
@@ -165,15 +182,15 @@ const DesignForm = ({ designers, manufacturers, design, designTypes, onSubmit })
           </div>
 
           <div>
-            <label htmlFor="manufacturer_url">Manufacturer URL</label>
+            <label htmlFor="manufacturerUrl">Manufacturer URL</label>
             <Field
-              name="manufacturer_url"
+              name="manufacturerUrl"
               type="text"
-              id="manufacturer_url"
+              id="manufacturerUrl"
             ></Field>
             <small>(link to the design on manufacturer's website)</small>
-            {errors.manufacturer_url && touched.manufacturer_url ? (
-              <i>{errors.manufacturer_url}</i>
+            {errors.manufacturerUrl && touched.manufacturerUrl ? (
+              <i>{errors.manufacturerUrl}</i>
             ) : null}
           </div>
 

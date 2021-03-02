@@ -10,16 +10,17 @@ export const CREATE_DESIGN_FAILURE = "CREATE_DESIGN_FAILURE";
 export const RESET = "RESET";
 
 export interface Design {
+  id: number;
   name: string;
   image: string;
   imageReference: string;
-  imageFile: File;
+  imageFile: File | "";
   alsoKnownAs: string;
   alsoKnownAsOriginCountry: string;
   originCountry: string;
   model: string;
-  yearFrom: number;
-  yearTo: number;
+  yearFrom: number | "";
+  yearTo: number | "";
   designerId: number;
   manufacturerId: number;
   isFeatured: boolean;
@@ -29,6 +30,8 @@ export interface Design {
   recognitions: string;
   notes: string;
   typeId: number;
+  designer?: { id: number; name: string }; // @Todo: Update when designer type is created
+  manufacturer?: { id: number; name: string }; // @Todo: Update when manufacturer type is created
 }
 
 export interface DesignState {
