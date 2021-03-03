@@ -5,3 +5,10 @@ export const SELECT_MANUFACTURER = "SELECT_MANUFACTURER";
 export const FETCH_DESIGNS_START = "FETCH_DESIGNS_START";
 export const FETCH_DESIGNS_SUCCESS = "FETCH_DESIGNS_SUCCESS";
 export const FETCH_DESIGNS_FAILURE = "FETCH_DESIGNS_FAILURE";
+
+export interface FilterOptions {
+    showFeatured: boolean;
+    designer: number | null;
+    manufacturer: number | null;
+    type: number | null;
+}

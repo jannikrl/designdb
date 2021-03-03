@@ -20,7 +20,7 @@ export const fetchDesign = (id: number): ThunkAction => {
   return async (dispatch) => {
     dispatch(fetchDesignStart());
     try {
-      const design = await designService.fetchDesign(id) as Design; // @TODO: Add types to designService
+      const design = await designService.fetchDesign(id);
       dispatch(fetchDesignSuccess(design));
     } catch (error) {
       dispatch(fetchDesignFailure(error));
@@ -36,7 +36,7 @@ export const updateDesign = (values: Design): ThunkAction => {
         const image = await imageService.uploadImage(values.imageFile);
         values.image = image;
       }
-      const design = await designService.updateDesign(values) as Design; // @TODO: Add types to designService
+      const design = await designService.updateDesign(values);
       dispatch(updateDesignSuccess(design));
     } catch (error) {
       dispatch(updateDesignFailure(error.message));
@@ -52,7 +52,7 @@ export const createDesign = (values: Design): ThunkAction => {
         const image = await imageService.uploadImage(values.imageFile);
         values.image = image;
       }
-      const design = await designService.createDesign(values) as Design; // @TODO: Add types to designService
+      const design = await designService.createDesign(values);
       dispatch(createDesignSuccess(design));
     } catch (error) {
       dispatch(createDesignFailure(error.message));

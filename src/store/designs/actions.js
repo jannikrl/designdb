@@ -1,10 +1,10 @@
-import * as actionTypes from "./actionTypes";
+import * as types from "./types";
 import * as designService from "../../services/designService";
 import * as gridSelectors from "./selectors";
 
 export const showFeatured = (value) => {
   const action = {
-    type: actionTypes.SHOW_FEATURED,
+    type: types.SHOW_FEATURED,
     value: value,
   };
 
@@ -16,7 +16,7 @@ export const showFeatured = (value) => {
 
 export const selectDesigner = (id) => {
   const action = {
-    type: actionTypes.SELECT_DESIGNER,
+    type: types.SELECT_DESIGNER,
     id: id,
   };
 
@@ -28,7 +28,7 @@ export const selectDesigner = (id) => {
 
 export const selectManufacturer = (id) => {
   const action = {
-    type: actionTypes.SELECT_MANUFACTURER,
+    type: types.SELECT_MANUFACTURER,
     id: id,
   };
 
@@ -40,7 +40,7 @@ export const selectManufacturer = (id) => {
 
 export const selectDesignType = (id) => {
   const action = {
-    type: actionTypes.SELECT_DESIGN_TYPE,
+    type: types.SELECT_DESIGN_TYPE,
     id: id,
   };
 
@@ -67,20 +67,20 @@ export const fetchDesigns = () => {
 
 const fetchDesignsStart = () => {
   return {
-    type: actionTypes.FETCH_DESIGNS_START,
+    type: types.FETCH_DESIGNS_START,
   };
 };
 
 const fetchDesignsSuccess = (designs) => {
   return {
-    type: actionTypes.FETCH_DESIGNS_SUCCESS,
+    type: types.FETCH_DESIGNS_SUCCESS,
     designs: designs,
   };
 };
 
 const fetchDesignsFailure = (error) => {
   return {
-    type: actionTypes.FETCH_DESIGNS_FAILURE,
+    type: types.FETCH_DESIGNS_FAILURE,
     error: error,
   };
 };

@@ -12,7 +12,7 @@ export const login = async (email, password) => {
       const token = response.data.token;
       const expiryDate = new Date().setFullYear(new Date().getFullYear() + 1);
       localStorage.setItem("token", token);
-      localStorage.setItem("expiryDate", expiryDate);
+      localStorage.setItem("expiryDate", expiryDate.toString());
       return token;
     })
     .catch((error) => {

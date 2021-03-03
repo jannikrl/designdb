@@ -1,4 +1,4 @@
-import * as actionTypes from "./actionTypes";
+import * as types from "./types";
 
 const initialState = {
   designs: [],
@@ -78,19 +78,19 @@ const selectDesignType = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_DESIGNS_START:
+    case types.FETCH_DESIGNS_START:
       return fetchDesignsStart(state, action);
-    case actionTypes.FETCH_DESIGNS_SUCCESS:
+    case types.FETCH_DESIGNS_SUCCESS:
       return fetchDesignsSuccess(state, action);
-    case actionTypes.FETCH_DESIGNS_FAILURE:
+    case types.FETCH_DESIGNS_FAILURE:
       return fetchDesignsFailure(state, action);
-    case actionTypes.SHOW_FEATURED:
+    case types.SHOW_FEATURED:
       return showFeatured(state, action);
-    case actionTypes.SELECT_DESIGNER:
+    case types.SELECT_DESIGNER:
       return selectDesigner(state, action);
-    case actionTypes.SELECT_MANUFACTURER:
+    case types.SELECT_MANUFACTURER:
       return selectManufacturer(state, action);
-    case actionTypes.SELECT_DESIGN_TYPE:
+    case types.SELECT_DESIGN_TYPE:
       return selectDesignType(state, action);
     default:
       return state;
