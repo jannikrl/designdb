@@ -1,4 +1,4 @@
-import * as actionTypes from "./actionTypes";
+import * as types from "./types";
 
 const initialState = {
   designer: null,
@@ -80,23 +80,23 @@ const createDesignerFailure = (state, action) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_DESIGNER_START:
+    case types.FETCH_DESIGNER_START:
       return fetchDesignerStart(state, action);
-    case actionTypes.FETCH_DESIGNER_SUCCESS:
+    case types.FETCH_DESIGNER_SUCCESS:
       return fetchDesignerSuccess(state, action);
-    case actionTypes.FETCH_DESIGNER_FAILURE:
+    case types.FETCH_DESIGNER_FAILURE:
       return fetchDesignerFailure(state, action);
-    case actionTypes.UPDATE_DESIGNER_START:
+    case types.UPDATE_DESIGNER_START:
       return updateDesignerStart(state, action);
-    case actionTypes.UPDATE_DESIGNER_SUCCESS:
+    case types.UPDATE_DESIGNER_SUCCESS:
       return updateDesignerSuccess(state, action);
-    case actionTypes.UPDATE_DESIGNER_FAILURE:
+    case types.UPDATE_DESIGNER_FAILURE:
       return updateDesignerFailure(state, action);
-    case actionTypes.CREATE_DESIGNER_START:
+    case types.CREATE_DESIGNER_START:
       return createDesignerStart(state, action);
-    case actionTypes.CREATE_DESIGNER_SUCCESS:
+    case types.CREATE_DESIGNER_SUCCESS:
       return createDesignerSuccess(state, action);
-    case actionTypes.CREATE_DESIGNER_FAILURE:
+    case types.CREATE_DESIGNER_FAILURE:
       return createDesignerFailure(state, action);
     default:
       return state;

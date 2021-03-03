@@ -4,7 +4,7 @@ import { keysToCamelCase, keysToSnakeCase } from "../utils/utils";
 export const fetchDesigners = async () => {
   const designers = await axios
     .get("/designers")
-    .then((response) => response.data.map((design) => keysToCamelCase(design)))
+    .then((response) => response.data.map((designer) => keysToCamelCase(designer)))
     .catch((error) => {
       throw new Error("designerService getDesigners failed");
     });

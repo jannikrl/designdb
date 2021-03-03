@@ -1,6 +1,6 @@
 import { axios } from "./baseService";
 
-export const login = async (email, password) => {
+export const login = async (email: string, password: string) => {
   const params = {
     email: email,
     password: password,
@@ -9,13 +9,13 @@ export const login = async (email, password) => {
   const token = await axios
     .post("/login", params)
     .then((response) => {
-      const token = response.data.token;
+      const token = response.data.token as string;
       const expiryDate = new Date().setFullYear(new Date().getFullYear() + 1);
       localStorage.setItem("token", token);
       localStorage.setItem("expiryDate", expiryDate.toString());
       return token;
     })
-    .catch((error) => {
+    .catch(() => {
       throw new Error("authService login failed");
     });
 
@@ -25,7 +25,7 @@ export const login = async (email, password) => {
 export const isLocalStorageTokenValid = () => {
   const token = localStorage.getItem("token");
   const expiryDate = localStorage.getItem("expiryDate");
-  const isTokenExpiried = expiryDate < new Date();
+  const isTokenExpiried = expiryDate ? +expiryDate < Date.now() : true;
   if (!token || isTokenExpiried) {
     return false;
   }

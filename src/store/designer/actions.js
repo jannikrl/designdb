@@ -1,4 +1,4 @@
-import * as actionTypes from "./actionTypes";
+import * as types from "./types";
 import * as imageService from "../../services/imageService";
 import * as designerService from "../../services/designerService";
 
@@ -48,20 +48,20 @@ export const createDesigner = (values) => {
 
 const fetchDesignerStart = () => {
   return {
-    type: actionTypes.FETCH_DESIGNER_START,
+    type: types.FETCH_DESIGNER_START,
   };
 };
 
 const fetchDesignerSuccess = (designer) => {
   return {
-    type: actionTypes.FETCH_DESIGNER_SUCCESS,
+    type: types.FETCH_DESIGNER_SUCCESS,
     designer: designer,
   };
 };
 
 const fetchDesignerFailure = (error) => {
   return {
-    type: actionTypes.FETCH_DESIGNER_FAILURE,
+    type: types.FETCH_DESIGNER_FAILURE,
     error: error,
   };
 };
@@ -69,40 +69,40 @@ const fetchDesignerFailure = (error) => {
 
 const updateDesignerStart = () => {
   return {
-    type: actionTypes.UPDATE_DESIGNER_START,
+    type: types.UPDATE_DESIGNER_START,
   };
 };
 
 const updateDesignerSuccess = (designer) => {
   return {
-    type: actionTypes.UPDATE_DESIGNER_SUCCESS,
+    type: types.UPDATE_DESIGNER_SUCCESS,
     designer: designer,
   };
 };
 
 const updateDesignerFailure = (error) => {
   return {
-    type: actionTypes.UPDATE_DESIGNER_FAILURE,
+    type: types.UPDATE_DESIGNER_FAILURE,
     error: error,
   };
 };
 
 const createDesignerStart = () => {
   return {
-    type: actionTypes.CREATE_DESIGNER_START,
+    type: types.CREATE_DESIGNER_START,
   };
 };
 
 const createDesignerSuccess = (designer) => {
   return {
-    type: actionTypes.CREATE_DESIGNER_SUCCESS,
+    type: types.CREATE_DESIGNER_SUCCESS,
     designer: designer,
   };
 };
 
 const createDesignerFailure = (error) => {
   return {
-    type: actionTypes.CREATE_DESIGNER_FAILURE,
+    type: types.CREATE_DESIGNER_FAILURE,
     error: error,
   };
 };
