@@ -39,46 +39,46 @@ const DesignForm: React.FC<DesignFormProps> = ({
   interface DesignFormValues {
     id: number;
     name: string;
-    image: string;
+    image: string | undefined;
     imageFile: File | undefined;
-    imageReference: string;
-    model: string;
-    alsoKnownAs: string;
-    alsoKnownAsOriginCountry: string;
-    originCountry: string;
+    imageReference: string | undefined;
+    model: string | undefined;
+    alsoKnownAs: string | undefined;
+    alsoKnownAsOriginCountry: string | undefined;
+    originCountry: string | undefined;
     yearFrom: number | undefined;
     yearTo: number | undefined;
     designerId: number | undefined;
     manufacturerId: number | undefined;
-    isFeatured: boolean;
-    manufacturerUrl: string;
-    manufacturerDescription: string;
-    wikipediaUrl: string;
-    recognitions: string;
-    notes: string;
+    isFeatured: boolean | undefined;
+    manufacturerUrl: string | undefined;
+    manufacturerDescription: string | undefined;
+    wikipediaUrl: string | undefined;
+    recognitions: string | undefined;
+    notes: string | undefined;
     typeId: number | undefined;
   }
 
   const initialValues: DesignFormValues = {
     id: design?.id,
-    name: design?.name ?? "",
-    image: design?.image ?? "",
+    name: design?.name,
+    image: design?.image ?? undefined,
     imageFile: undefined,
-    imageReference: design?.imageReference ?? "",
-    model: design?.model ?? "",
-    alsoKnownAs: design?.alsoKnownAs ?? "",
-    alsoKnownAsOriginCountry: design?.alsoKnownAsOriginCountry ?? "",
-    originCountry: design?.originCountry ?? "",
+    imageReference: design?.imageReference ?? undefined,
+    model: design?.model ?? undefined,
+    alsoKnownAs: design?.alsoKnownAs ?? undefined,
+    alsoKnownAsOriginCountry: design?.alsoKnownAsOriginCountry ?? undefined,
+    originCountry: design?.originCountry ?? undefined,
     yearFrom: design?.yearFrom ?? undefined,
     yearTo: design?.yearTo ?? undefined,
     designerId: design?.designerId ?? undefined,
     manufacturerId: design?.manufacturerId ?? undefined,
     isFeatured: !!design?.isFeatured,
-    manufacturerUrl: design?.manufacturerUrl ?? "",
-    manufacturerDescription: design?.manufacturerDescription ?? "",
-    wikipediaUrl: design?.wikipediaUrl ?? "",
-    recognitions: design?.recognitions ?? "",
-    notes: design?.notes ?? "",
+    manufacturerUrl: design?.manufacturerUrl ?? undefined,
+    manufacturerDescription: design?.manufacturerDescription ?? undefined,
+    wikipediaUrl: design?.wikipediaUrl ?? undefined,
+    recognitions: design?.recognitions ?? undefined,
+    notes: design?.notes ?? undefined,
     typeId: design?.typeId ?? undefined,
   };
 
@@ -86,29 +86,31 @@ const DesignForm: React.FC<DesignFormProps> = ({
     return {
       id: values.id,
       name: values.name,
-      image: values.image,
+      image: values.image ?? null,
       imageFile: values.imageFile ?? null,
-      imageReference: values.imageReference,
-      model: values.model,
-      alsoKnownAs: values.alsoKnownAs,
-      alsoKnownAsOriginCountry: values.alsoKnownAsOriginCountry,
-      originCountry: values.originCountry,
+      imageReference: values.imageReference ?? null,
+      model: values.model ?? null,
+      alsoKnownAs: values.alsoKnownAs ?? null,
+      alsoKnownAsOriginCountry: values.alsoKnownAsOriginCountry ?? null,
+      originCountry: values.originCountry ?? null,
       yearFrom: values.yearFrom ?? null,
       yearTo: values.yearTo ?? null,
       designerId: values.designerId ?? null,
       manufacturerId: values.manufacturerId ?? null,
-      isFeatured: values.isFeatured,
-      manufacturerUrl: values.manufacturerUrl,
-      manufacturerDescription: values.manufacturerDescription,
-      wikipediaUrl: values.wikipediaUrl,
-      recognitions: values.recognitions,
-      notes: values.notes,
+      isFeatured: values.isFeatured ?? null,
+      manufacturerUrl: values.manufacturerUrl ?? null,
+      manufacturerDescription: values.manufacturerDescription ?? null,
+      wikipediaUrl: values.wikipediaUrl ?? null,
+      recognitions: values.recognitions ?? null,
+      notes: values.notes ?? null,
       typeId: values.typeId ?? null,
-    }
+    };
   };
 
   const submitHandler = (values: DesignFormValues) => {
+    console.log(values);
     const design = mapValues(values);
+    console.log(design);
     onSubmit(design);
   };
 

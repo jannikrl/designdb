@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 type ImageUploadType = {
-  initialImage: string;
+  initialImage: string | undefined;
   onChange: (imageFile: File) => void;
 };
 
