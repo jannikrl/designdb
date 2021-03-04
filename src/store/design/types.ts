@@ -12,24 +12,24 @@ export const RESET = "RESET";
 export interface Design {
   id: number;
   name: string;
-  image: string;
-  imageReference: string;
-  imageFile: File | "";
-  alsoKnownAs: string;
-  alsoKnownAsOriginCountry: string;
-  originCountry: string;
-  model: string;
-  yearFrom: number | "";
-  yearTo: number | "";
-  designerId: number;
-  manufacturerId: number;
-  isFeatured: boolean;
-  manufacturerUrl: string;
-  manufacturerDescription: string;
-  wikipediaUrl: string;
-  recognitions: string;
-  notes: string;
-  typeId: number;
+  image: string | null;
+  imageReference: string | null;
+  imageFile: File | null;
+  alsoKnownAs: string | null;
+  alsoKnownAsOriginCountry: string | null;
+  originCountry: string | null;
+  model: string | null;
+  yearFrom: number | null;
+  yearTo: number | null;
+  designerId: number | null;
+  manufacturerId: number | null;
+  isFeatured: boolean | null;
+  manufacturerUrl: string | null;
+  manufacturerDescription: string | null;
+  wikipediaUrl: string | null;
+  recognitions: string | null;
+  notes: string | null;
+  typeId: number | null;
   designer?: { id: number; name: string }; // @Todo: Update when designer type is created
   manufacturer?: { id: number; name: string }; // @Todo: Update when manufacturer type is created
 }

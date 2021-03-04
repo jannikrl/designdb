@@ -36,56 +36,87 @@ const DesignForm: React.FC<DesignFormProps> = ({
   designTypes,
   onSubmit,
 }) => {
-  const {
-    id,
-    name,
-    image,
-    imageReference,
-    alsoKnownAs,
-    alsoKnownAsOriginCountry,
-    originCountry,
-    model,
-    yearFrom,
-    yearTo,
-    designerId,
-    manufacturerId,
-    isFeatured,
-    manufacturerUrl,
-    manufacturerDescription,
-    wikipediaUrl,
-    recognitions,
-    notes,
-    typeId,
-  } = design || {};
+  interface DesignFormValues {
+    id: number;
+    name: string;
+    image: string;
+    imageFile: File | undefined;
+    imageReference: string;
+    model: string;
+    alsoKnownAs: string;
+    alsoKnownAsOriginCountry: string;
+    originCountry: string;
+    yearFrom: number | undefined;
+    yearTo: number | undefined;
+    designerId: number | undefined;
+    manufacturerId: number | undefined;
+    isFeatured: boolean;
+    manufacturerUrl: string;
+    manufacturerDescription: string;
+    wikipediaUrl: string;
+    recognitions: string;
+    notes: string;
+    typeId: number | undefined;
+  }
 
-  const initialValues: Design = {
-    id,
-    name: name || "",
-    image: image || "",
-    imageFile: "",
-    imageReference: imageReference || "",
-    model: model || "",
-    alsoKnownAs: alsoKnownAs || "",
-    alsoKnownAsOriginCountry: alsoKnownAsOriginCountry || "",
-    originCountry: originCountry || "",
-    yearFrom: yearFrom || "",
-    yearTo: yearTo || "",
-    designerId: designerId,
-    manufacturerId: manufacturerId,
-    isFeatured: !!isFeatured,
-    manufacturerUrl: manufacturerUrl || "",
-    manufacturerDescription: manufacturerDescription || "",
-    wikipediaUrl: wikipediaUrl || "",
-    recognitions: recognitions || "",
-    notes: notes || "",
-    typeId: typeId,
+  const initialValues: DesignFormValues = {
+    id: design.id,
+    name: design.name ?? "",
+    image: design.image ?? "",
+    imageFile: undefined,
+    imageReference: design.imageReference ?? "",
+    model: design.model ?? "",
+    alsoKnownAs: design.alsoKnownAs ?? "",
+    alsoKnownAsOriginCountry: design.alsoKnownAsOriginCountry ?? "",
+    originCountry: design.originCountry ?? "",
+    yearFrom: design.yearFrom ?? undefined,
+    yearTo: design.yearTo ?? undefined,
+    designerId: design.designerId ?? undefined,
+    manufacturerId: design.manufacturerId ?? undefined,
+    isFeatured: !!design.isFeatured,
+    manufacturerUrl: design.manufacturerUrl ?? "",
+    manufacturerDescription: design.manufacturerDescription ?? "",
+    wikipediaUrl: design.wikipediaUrl ?? "",
+    recognitions: design.recognitions ?? "",
+    notes: design.notes ?? "",
+    typeId: design.typeId ?? undefined,
+  };
+
+  const mapValues = (values: DesignFormValues): Design => {
+    return {
+      id: values.id,
+      name: values.name,
+      image: values.image,
+      imageFile: values.imageFile ?? null,
+      imageReference: values.imageReference,
+      model: values.model,
+      alsoKnownAs: values.alsoKnownAs,
+      alsoKnownAsOriginCountry: values.alsoKnownAsOriginCountry,
+      originCountry: values.originCountry,
+      yearFrom: values.yearFrom ?? null,
+      yearTo: values.yearTo ?? null,
+      designerId: values.designerId ?? null,
+      manufacturerId: values.manufacturerId ?? null,
+      isFeatured: values.isFeatured,
+      manufacturerUrl: values.manufacturerUrl,
+      manufacturerDescription: values.manufacturerDescription,
+      wikipediaUrl: values.wikipediaUrl,
+      recognitions: values.recognitions,
+      notes: values.notes,
+      typeId: values.typeId ?? null,
+    }
+  };
+
+  const submitHandler = (values: DesignFormValues) => {
+    const design = mapValues(values);
+    onSubmit(design);
   };
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={schema}
-      onSubmit={(values: Design) => onSubmit(values)}
+      onSubmit={(values: DesignFormValues) => submitHandler(values)}
     >
       {({ errors, touched, setFieldValue }) => (
         <Form>
@@ -96,7 +127,7 @@ const DesignForm: React.FC<DesignFormProps> = ({
           </div>
           <Field name="image" type="hidden" id="image"></Field>
           <ImageUpload
-            initialImage={image}
+            initialImage={initialValues.image}
             onChange={(imageFile) => {
               setFieldValue("imageFile", imageFile);
             }}
