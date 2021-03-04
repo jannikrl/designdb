@@ -108,9 +108,7 @@ const DesignForm: React.FC<DesignFormProps> = ({
   };
 
   const submitHandler = (values: DesignFormValues) => {
-    console.log(values);
     const design = mapValues(values);
-    console.log(design);
     onSubmit(design);
   };
 
