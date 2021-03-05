@@ -23,25 +23,25 @@ const schema = Yup.object().shape({
 
 export interface DesignFormValues {
   id?: number;
-  name?: string;
-  image?: string;
+  name: string;
+  image: string;
   imageFile?: File;
-  imageReference?: string;
-  model?: string;
-  alsoKnownAs?: string;
-  alsoKnownAsOriginCountry?: string;
-  originCountry?: string;
-  yearFrom?: number;
-  yearTo?: number;
-  designerId?: number;
-  manufacturerId?: number;
-  isFeatured?: boolean;
-  manufacturerUrl?: string;
-  manufacturerDescription?: string;
-  wikipediaUrl?: string;
-  recognitions?: string;
-  notes?: string;
-  typeId?: number;
+  imageReference: string;
+  model: string;
+  alsoKnownAs: string;
+  alsoKnownAsOriginCountry: string;
+  originCountry: string;
+  yearFrom: number | string;
+  yearTo: number | string;
+  designerId: number | string;
+  manufacturerId: number | string;
+  isFeatured: boolean;
+  manufacturerUrl: string;
+  manufacturerDescription: string;
+  wikipediaUrl: string;
+  recognitions: string;
+  notes: string;
+  typeId: number | string;
 }
 
 type DesignFormProps = {
@@ -61,25 +61,25 @@ const DesignForm: React.FC<DesignFormProps> = ({
 }) => {
   const initialValues: DesignFormValues = {
     id: design?.id,
-    name: design?.name,
-    image: design?.image ?? undefined,
+    name: design?.name ?? "",
+    image: design?.image ?? "",
     imageFile: undefined,
-    imageReference: design?.imageReference ?? undefined,
-    model: design?.model ?? undefined,
-    alsoKnownAs: design?.alsoKnownAs ?? undefined,
-    alsoKnownAsOriginCountry: design?.alsoKnownAsOriginCountry ?? undefined,
-    originCountry: design?.originCountry ?? undefined,
-    yearFrom: design?.yearFrom ?? undefined,
-    yearTo: design?.yearTo ?? undefined,
-    designerId: design?.designerId ?? undefined,
-    manufacturerId: design?.manufacturerId ?? undefined,
+    imageReference: design?.imageReference ?? "",
+    model: design?.model ?? "",
+    alsoKnownAs: design?.alsoKnownAs ?? "",
+    alsoKnownAsOriginCountry: design?.alsoKnownAsOriginCountry ?? "",
+    originCountry: design?.originCountry ?? "",
+    yearFrom: design?.yearFrom ?? "",
+    yearTo: design?.yearTo ?? "",
+    designerId: design?.designerId ?? "",
+    manufacturerId: design?.manufacturerId ?? "",
     isFeatured: !!design?.isFeatured,
-    manufacturerUrl: design?.manufacturerUrl ?? undefined,
-    manufacturerDescription: design?.manufacturerDescription ?? undefined,
-    wikipediaUrl: design?.wikipediaUrl ?? undefined,
-    recognitions: design?.recognitions ?? undefined,
-    notes: design?.notes ?? undefined,
-    typeId: design?.typeId ?? undefined,
+    manufacturerUrl: design?.manufacturerUrl ?? "",
+    manufacturerDescription: design?.manufacturerDescription ?? "",
+    wikipediaUrl: design?.wikipediaUrl ?? "",
+    recognitions: design?.recognitions ?? "",
+    notes: design?.notes ?? "",
+    typeId: design?.typeId ?? "",
   };
 
   return (
