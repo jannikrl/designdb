@@ -6,11 +6,11 @@ import { ManufacturerFormValues } from "../components/Forms/ManufacturerForm/Man
 export const fetchManufacturers = async () => {
   const manufacturers = await axios
     .get("/manufacturers")
-    .then((response) =>
-      response.data.map(
-        (manufacturer: Manufacturer) =>
-          keysToCamelCase(manufacturer) as Manufacturer[]
-      )
+    .then(
+      (response) =>
+        response.data.map((manufacturer: Manufacturer) =>
+          keysToCamelCase(manufacturer)
+        ) as Manufacturer[]
     )
     .catch((error) => {
       throw new Error("manufacturerService getManufacturers failed");

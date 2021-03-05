@@ -41,8 +41,7 @@ export const createDesigner = async (values: DesignerFormValues) => {
   return designer;
 };
 
-// @Todo: Update with type DesignerFormValues
-export const updateDesigner = async (values: any) => {
+export const updateDesigner = async (values: DesignerFormValues) => {
   const designer = await axios
     .put(`/designers/${values.id}`, keysToSnakeCase(values))
     .then((response) => keysToCamelCase(response.data) as Designer)
