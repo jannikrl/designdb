@@ -2,19 +2,32 @@ import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import ImageUpload from "../../UI/ImageUpload";
+import { Manufacturer } from "../../../store/manufacturer/types";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Required"),
 });
 
-const ManufacturerForm = ({ manufacturer, onSubmit }) => {
-  const {
-    name,
-    image,
-  } = manufacturer ? manufacturer : {};
+export interface ManufacturerFormValues {
+  id?: number;
+  name: string;
+  image: string;
+  imageFile?: File;
+}
 
-  const initialValues = {
-    name: name || "",
+export interface ManufacturerFromProps {
+  manufacturer: Manufacturer;
+  onSubmit: (values: ManufacturerFormValues) => void;
+}
+
+const ManufacturerForm: React.FC<ManufacturerFromProps> = ({
+  manufacturer,
+  onSubmit,
+}) => {
+  const initialValues: ManufacturerFormValues = {
+    name: manufacturer?.name ?? "",
+    image: manufacturer?.image ?? "",
+    imageFile: undefined,
   };
 
   return (
@@ -32,7 +45,7 @@ const ManufacturerForm = ({ manufacturer, onSubmit }) => {
           </div>
 
           <ImageUpload
-            initialImage={image}
+            initialImage={initialValues.image}
             onChange={(imageFile) => {
               setFieldValue("imageFile", imageFile);
             }}

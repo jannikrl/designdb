@@ -67,20 +67,20 @@ export const fetchDesigns = (): ThunkAction => {
   };
 };
 
-const fetchDesignsStart = () => {
+const fetchDesignsStart = (): types.DesignsActionTypes => {
   return {
     type: types.FETCH_DESIGNS_START,
   };
 };
 
-const fetchDesignsSuccess = (designs: Design[]) => {
+const fetchDesignsSuccess = (designs: Design[]): types.DesignsActionTypes => {
   return {
     type: types.FETCH_DESIGNS_SUCCESS,
     designs: designs,
   };
 };
 
-const fetchDesignsFailure = (error: string) => {
+const fetchDesignsFailure = (error: string): types.DesignsActionTypes => {
   return {
     type: types.FETCH_DESIGNS_FAILURE,
     error: error,
