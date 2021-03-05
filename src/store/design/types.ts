@@ -14,7 +14,6 @@ export interface Design {
   name: string;
   image: string | null;
   imageReference: string | null;
-  imageFile: File | null;
   alsoKnownAs: string | null;
   alsoKnownAsOriginCountry: string | null;
   originCountry: string | null;

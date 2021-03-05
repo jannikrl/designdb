@@ -3,33 +3,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as designerSelectors from "../../store/designer/selectors";
 import * as designerActions from "../../store/designer/actions";
-import DesignerForm from "../../components/Forms/DesignerForm/DesignerForm";
+import DesignerForm, {
+  DesignerFormValues,
+} from "../../components/Forms/DesignerForm/DesignerForm";
+import { RootState } from "../../store/types";
 
-const DesignerEdit = (props) => {
+type paramTypes = {
+  id: string;
+};
+
+const DesignerEdit = () => {
   const [didSubmit, setDidSubmit] = useState(false);
-  const designer = useSelector((state) => designerSelectors.getDesigner(state));
-  const designerError = useSelector((state) => designerSelectors.getError(state));
-  const designerIsLoading = useSelector((state) =>
+  const designer = useSelector((state: RootState) =>
+    designerSelectors.getDesigner(state)
+  );
+  const designerError = useSelector((state: RootState) =>
+    designerSelectors.getError(state)
+  );
+  const designerIsLoading = useSelector((state: RootState) =>
     designerSelectors.isLoading(state)
   );
 
   const dispatch = useDispatch();
 
-  const { id } = useParams();
+  const { id } = useParams<paramTypes>();
 
   const fetchDesigner = useCallback(
-    () => dispatch(designerActions.fetchDesigner(id)),
+    () => dispatch(designerActions.fetchDesigner(+id)),
     [dispatch, id]
   );
 
-  const updateDesigner = (designer) => dispatch(designerActions.updateDesigner(designer));
+  const updateDesigner = (values: DesignerFormValues) =>
+    dispatch(designerActions.updateDesigner(values));
 
   useEffect(() => {
     fetchDesigner();
   }, [fetchDesigner]);
 
-  const submitHandler = (values) => {
-    values.id = id;
+  const submitHandler = (values: DesignerFormValues) => {
+    values.id = +id;
     updateDesigner(values);
     setDidSubmit(true);
   };

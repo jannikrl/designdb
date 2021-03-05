@@ -3,30 +3,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as designerSelectors from "../../store/designer/selectors";
 import * as designerActions from "../../store/designer/actions";
-import DesignerForm from "../../components/Forms/DesignerForm/DesignerForm";
+import DesignerForm, {
+  DesignerFormValues,
+} from "../../components/Forms/DesignerForm/DesignerForm";
+import { RootState } from "../../store/types";
 
-const DesignerCreate = (props) => {
+const DesignerCreate = () => {
   const [didSubmit, setDidSubmit] = useState(false);
-  const designer = useSelector((state) => designerSelectors.getDesigner(state));
-  const designerError = useSelector((state) =>
+  const designer = useSelector((state: RootState) =>
+    designerSelectors.getDesigner(state)
+  );
+  const designerError = useSelector((state: RootState) =>
     designerSelectors.getError(state)
   );
-  const designerIsLoading = useSelector((state) =>
+  const designerIsLoading = useSelector((state: RootState) =>
     designerSelectors.isLoading(state)
   );
 
   const dispatch = useDispatch();
 
-  const createDesigner = (designer) =>
-    dispatch(designerActions.createDesigner(designer));
+  const createDesigner = (values: DesignerFormValues) =>
+    dispatch(designerActions.createDesigner(values));
 
-  const submitHandler = (values) => {
+  const submitHandler = (values: DesignerFormValues) => {
     createDesigner(values);
     setDidSubmit(true);
   };
 
   const isSuccess = didSubmit && !designerIsLoading && !designerError;
-  const redirect = isSuccess && <Redirect to={`/designer/${designer.id}`} />;
+  const redirect = isSuccess && designer && <Redirect to={`/designer/${designer.id}`} />;
   const errorMessage = didSubmit && designerError && (
     <p>Something went wrong, try again</p>
   );

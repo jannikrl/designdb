@@ -48,7 +48,7 @@ const Design: React.FC = () => {
     manufacturerDescription,
     wikipediaUrl,
     recognitions,
-  } = design || {};
+  } = design ?? {};
 
   const didFetchDesign = design && design.id === +id;
 

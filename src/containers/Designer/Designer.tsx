@@ -3,21 +3,26 @@ import { useDispatch, useSelector } from "react-redux";
 import * as designerSelectors from "../../store/designer/selectors";
 import * as designerActions from "../../store/designer/actions";
 import { Link, useParams } from "react-router-dom";
-import * as classes from "./Designer.module.scss";
+import styles from "./Designer.module.scss";
 import * as authSelectors from "../../store/auth/selectors";
+import { RootState } from "../../store/types";
 
-const Designer = (props) => {
-  const designer = useSelector((store) => designerSelectors.getDesigner(store));
+type paramTypes = {
+    id: string;
+}
+
+const Designer = () => {
+  const designer = useSelector((store: RootState) => designerSelectors.getDesigner(store));
   const isAuthenticated = useSelector((state) =>
     authSelectors.isAuthenticated(state)
   );
 
   const dispatch = useDispatch();
 
-  const { id } = useParams();
+  const { id } = useParams<paramTypes>();
 
   useEffect(() => {
-    dispatch(designerActions.fetchDesigner(id));
+    dispatch(designerActions.fetchDesigner(+id));
   }, [dispatch, id]);
 
   const {
@@ -29,13 +34,13 @@ const Designer = (props) => {
     diedYear,
     diedCity,
     diedCountry,
-  } = designer ? designer : {};
+  } = designer ?? {};
 
   const didFetchDesigner = designer && designer.id === +id;
 
   return (
     didFetchDesigner && (
-      <div className={classes.designer}>
+      <div className={styles.designer}>
         {isAuthenticated && (
           <div>
             <Link to={`/designer/${id}/edit`}>Edit</Link>

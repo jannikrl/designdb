@@ -2,38 +2,48 @@ import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import ImageUpload from "../../UI/ImageUpload";
+import { Designer } from "../../../store/designer/types";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Required"),
 });
 
-const DesignerForm = ({ designer, onSubmit }) => {
-  const {
-    name,
-    image,
-    bornYear,
-    diedYear,
-    bornCity,
-    diedCity,
-    bornCountry,
-    diedCountry,
-  } = designer ? designer : {};
+export interface DesignerFormValues {
+    id?: number;
+    name: string;
+    image: string;
+    imageFile?: File;
+    bornYear: number | string;
+    diedYear: number | string;
+    bornCity: string;
+    diedCity: string;
+    bornCountry: string;
+    diedCountry: string;
+}
 
-  const initialValues = {
-    name: name || "",
-    bornYear: bornYear || "",
-    diedYear: diedYear || "",
-    bornCity: bornCity || "",
-    diedCity: diedCity || "",
-    bornCountry: bornCountry || "",
-    diedCountry: diedCountry || "",
+interface DesignerFormProps {
+    designer?: Designer | null,
+    onSubmit: (values: DesignerFormValues) => void,
+}
+
+const DesignerForm: React.FC<DesignerFormProps> = ({ designer, onSubmit }) => {
+  const initialValues: DesignerFormValues = {
+    name: designer?.name ?? "",
+    image: designer?.image ?? "",
+    imageFile: undefined,
+    bornYear: designer?.bornYear ?? "",
+    diedYear: designer?.diedYear ?? "",
+    bornCity: designer?.bornCity ?? "",
+    diedCity: designer?.diedCity ?? "",
+    bornCountry: designer?.bornCountry ?? "",
+    diedCountry: designer?.diedCountry ?? "",
   };
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={schema}
-      onSubmit={(values) => onSubmit(values)}
+      onSubmit={(values: DesignerFormValues) => onSubmit(values)}
     >
       {({ errors, touched, setFieldValue }) => (
         <Form>
@@ -45,7 +55,7 @@ const DesignerForm = ({ designer, onSubmit }) => {
 
           <div>
             <label htmlFor="bornYear">Born year</label>
-            <Field name="bornYear" type="text" id="bornYear"></Field>
+            <Field name="bornYear" type="number" id="bornYear"></Field>
             {errors.bornYear && touched.bornYear ? (
               <i>{errors.bornYear}</i>
             ) : null}
@@ -53,7 +63,7 @@ const DesignerForm = ({ designer, onSubmit }) => {
 
           <div>
             <label htmlFor="diedYear">Died year</label>
-            <Field name="diedYear" type="text" id="diedYear"></Field>
+            <Field name="diedYear" type="number" id="diedYear"></Field>
             {errors.diedYear && touched.diedYear ? <i>{errors.diedYear}</i> : null}
           </div>
 
@@ -86,7 +96,7 @@ const DesignerForm = ({ designer, onSubmit }) => {
           </div>
 
           <ImageUpload
-            initialImage={image}
+            initialImage={initialValues.image}
             onChange={(imageFile) => {
               setFieldValue("imageFile", imageFile);
             }}

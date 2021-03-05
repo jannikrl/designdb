@@ -60,8 +60,8 @@ const DesignEdit = () => {
     setDidSubmit(true);
   };
 
-  const isSuccess = didSubmit && !designIsLoading && !designError && !!design;
-  const redirect = isSuccess && <Redirect to={`/design/${design!.id}`} />;
+  const isSuccess = didSubmit && !designIsLoading && !designError;
+  const redirect = isSuccess && design && <Redirect to={`/design/${design.id}`} />;
   const errorMessage = didSubmit && designError && (
     <p>Something went wrong, try again</p>
   );
