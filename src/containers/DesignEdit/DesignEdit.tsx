@@ -29,13 +29,13 @@ const DesignEdit = () => {
   const designIsLoading = useSelector((state: RootState) =>
     designSelectors.isLoading(state)
   );
-  const designTypes = useSelector((state) =>
+  const designTypes = useSelector((state: RootState) =>
     designTypesSelectors.getTypes(state)
   );
-  const designers = useSelector((state) =>
+  const designers = useSelector((state: RootState) =>
     designersSelectors.getDesigners(state)
   );
-  const manufacturers = useSelector((state) =>
+  const manufacturers = useSelector((state: RootState) =>
     manufacturersSelectors.getManufacturers(state)
   );
 

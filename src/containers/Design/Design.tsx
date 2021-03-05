@@ -15,7 +15,7 @@ const Design: React.FC = () => {
   const design = useSelector((state: RootState) =>
     designSelectors.getDesign(state)
   );
-  const isAuthenticated = useSelector((state) =>
+  const isAuthenticated = useSelector((state: RootState) =>
     authSelectors.isAuthenticated(state)
   );
 

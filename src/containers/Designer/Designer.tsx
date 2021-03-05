@@ -13,7 +13,7 @@ type paramTypes = {
 
 const Designer = () => {
   const designer = useSelector((store: RootState) => designerSelectors.getDesigner(store));
-  const isAuthenticated = useSelector((state) =>
+  const isAuthenticated = useSelector((state: RootState) =>
     authSelectors.isAuthenticated(state)
   );
 
