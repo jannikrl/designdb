@@ -12,7 +12,7 @@ export const RESET = "RESET";
 export interface Design {
   id: number;
   name: string;
-  image: string | null;
+  image: string;
   imageReference: string | null;
   alsoKnownAs: string | null;
   alsoKnownAsOriginCountry: string | null;

@@ -13,31 +13,32 @@ import Logout from "./containers/Logout/Logout";
 import Header from "./components/Header/Header";
 import * as authSelectors from "./store/auth/selectors";
 import * as authActions from "./store/auth/actions";
+import { RootState } from "./store/types";
 
 const Design = lazy(() => import("./containers/Design/Design"));
 const DesignEdit = lazy(() => import("./containers/DesignEdit/DesignEdit"));
-const DesignCreate = lazy(() =>
-  import("./containers/DesignCreate/DesignCreate")
+const DesignCreate = lazy(
+  () => import("./containers/DesignCreate/DesignCreate")
 );
-const DesignerCreate = lazy(() =>
-  import("./containers/DesignerCreate/DesignerCreate")
+const DesignerCreate = lazy(
+  () => import("./containers/DesignerCreate/DesignerCreate")
 );
-const DesignerEdit = lazy(() =>
-  import("./containers/DesignerEdit/DesignerEdit")
+const DesignerEdit = lazy(
+  () => import("./containers/DesignerEdit/DesignerEdit")
 );
 const Designer = lazy(() => import("./containers/Designer/Designer"));
-const Manufacturer = lazy(() =>
-  import("./containers/Manufacturer/Manufacturer")
+const Manufacturer = lazy(
+  () => import("./containers/Manufacturer/Manufacturer")
 );
-const ManufacturerEdit = lazy(() =>
-  import("./containers/ManufacturerEdit/ManufacturerEdit")
+const ManufacturerEdit = lazy(
+  () => import("./containers/ManufacturerEdit/ManufacturerEdit")
 );
-const ManufacturerCreate = lazy(() =>
-  import("./containers/ManufacturerCreate/ManufacturerCreate")
+const ManufacturerCreate = lazy(
+  () => import("./containers/ManufacturerCreate/ManufacturerCreate")
 );
 
-const App = (props) => {
-  const isAuthenticated = useSelector((state) =>
+const App: React.FC = () => {
+  const isAuthenticated = useSelector((state: RootState) =>
     authSelectors.isAuthenticated(state)
   );
 

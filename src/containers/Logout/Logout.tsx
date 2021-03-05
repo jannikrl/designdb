@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import * as authActions from "../../store/auth/actions";
 import { Redirect } from "react-router-dom";
 
-const Logout = props => {
+const Logout: React.FC = () => {
     const dispatch = useDispatch();
 
     const logout = useCallback(() => dispatch(authActions.logout()), [dispatch]);

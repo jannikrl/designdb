@@ -8,11 +8,13 @@ import * as authSelectors from "../../store/auth/selectors";
 import { RootState } from "../../store/types";
 
 type paramTypes = {
-    id: string;
-}
+  id: string;
+};
 
-const Designer = () => {
-  const designer = useSelector((store: RootState) => designerSelectors.getDesigner(store));
+const Designer: React.FC = () => {
+  const designer = useSelector((store: RootState) =>
+    designerSelectors.getDesigner(store)
+  );
   const isAuthenticated = useSelector((state: RootState) =>
     authSelectors.isAuthenticated(state)
   );
@@ -39,33 +41,40 @@ const Designer = () => {
   const didFetchDesigner = designer && designer.id === +id;
 
   return (
-    didFetchDesigner && (
-      <div className={styles.designer}>
-        {isAuthenticated && (
-          <div>
-            <Link to={`/designer/${id}/edit`}>Edit</Link>
-          </div>
-        )}
+    <>
+      {didFetchDesigner && (
+        <div className={styles.designer}>
+          {isAuthenticated && (
+            <div>
+              <Link to={`/designer/${id}/edit`}>Edit</Link>
+            </div>
+          )}
 
-        <h2>{name}</h2>
+          <h2>{name}</h2>
 
-        {image && <img src={process.env.REACT_APP_IMAGE_URL + "/" + image} alt={name} />}
-        {bornYear && (
-          <p>
-            <strong>Born</strong> {bornYear}
-            {bornCity && ", " + bornCity}
-            {bornCountry && ", " + bornCountry}
-          </p>
-        )}
-        {diedYear && (
-          <p>
-            <strong>Died</strong> {diedYear}
-            {diedCity && ", " + diedCity}
-            {diedCountry && ", " + diedCountry}
-          </p>
-        )}
-      </div>
-    )
+          {image && (
+            <img
+              src={process.env.REACT_APP_IMAGE_URL + "/" + image}
+              alt={name}
+            />
+          )}
+          {bornYear && (
+            <p>
+              <strong>Born</strong> {bornYear}
+              {bornCity && ", " + bornCity}
+              {bornCountry && ", " + bornCountry}
+            </p>
+          )}
+          {diedYear && (
+            <p>
+              <strong>Died</strong> {diedYear}
+              {diedCity && ", " + diedCity}
+              {diedCountry && ", " + diedCountry}
+            </p>
+          )}
+        </div>
+      )}
+    </>
   );
 };
 

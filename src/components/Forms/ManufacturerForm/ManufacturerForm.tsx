@@ -16,7 +16,7 @@ export interface ManufacturerFormValues {
 }
 
 export interface ManufacturerFromProps {
-  manufacturer: Manufacturer;
+  manufacturer?: Manufacturer | null;
   onSubmit: (values: ManufacturerFormValues) => void;
 }
 

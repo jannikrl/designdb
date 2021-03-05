@@ -4,10 +4,11 @@ import Grid from "../../components/UI/Grid/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import * as designsActions from "../../store/designs/actions";
 import * as designsSelectors from "../../store/designs/selectors";
+import { RootState } from "../../store/types";
 
-const Designs = (props) => {
-  const designs = useSelector((state) => designsSelectors.getDesigns(state));
-  const isLoading = useSelector((state) => designsSelectors.isLoading(state));
+const Designs: React.FC = () => {
+  const designs = useSelector((state: RootState) => designsSelectors.getDesigns(state));
+  const isLoading = useSelector((state: RootState) => designsSelectors.isLoading(state));
 
   const dispatch = useDispatch();
 

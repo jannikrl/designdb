@@ -3,7 +3,7 @@ import React from "react";
 type DropDownProps = {
   options: { id: number, name: string }[],
   placeholder: string,
-  value: number,
+  value: number | null,
   onChange: (value: string) => void,
 };
 
