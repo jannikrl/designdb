@@ -21,12 +21,35 @@ const schema = Yup.object().shape({
   imageReference: Yup.string().required("Required"),
 });
 
+export interface DesignFormValues {
+  id?: number;
+  name?: string;
+  image?: string;
+  imageFile?: File;
+  imageReference?: string;
+  model?: string;
+  alsoKnownAs?: string;
+  alsoKnownAsOriginCountry?: string;
+  originCountry?: string;
+  yearFrom?: number;
+  yearTo?: number;
+  designerId?: number;
+  manufacturerId?: number;
+  isFeatured?: boolean;
+  manufacturerUrl?: string;
+  manufacturerDescription?: string;
+  wikipediaUrl?: string;
+  recognitions?: string;
+  notes?: string;
+  typeId?: number;
+}
+
 type DesignFormProps = {
   designers: { id: number; name: string }[]; // @Todo: Update when designer type is created
   manufacturers: { id: number; name: string }[]; // @Todo: Update when manufacturer type is created
-  design: Design;
+  design?: Design | null;
   designTypes: { id: number; name: string }[]; // @Todo: Update when designTypes type is created
-  onSubmit: (values: Design) => void;
+  onSubmit: (values: DesignFormValues) => void;
 };
 
 const DesignForm: React.FC<DesignFormProps> = ({
@@ -36,29 +59,6 @@ const DesignForm: React.FC<DesignFormProps> = ({
   designTypes,
   onSubmit,
 }) => {
-  interface DesignFormValues {
-    id: number;
-    name: string;
-    image: string | undefined;
-    imageFile: File | undefined;
-    imageReference: string | undefined;
-    model: string | undefined;
-    alsoKnownAs: string | undefined;
-    alsoKnownAsOriginCountry: string | undefined;
-    originCountry: string | undefined;
-    yearFrom: number | undefined;
-    yearTo: number | undefined;
-    designerId: number | undefined;
-    manufacturerId: number | undefined;
-    isFeatured: boolean | undefined;
-    manufacturerUrl: string | undefined;
-    manufacturerDescription: string | undefined;
-    wikipediaUrl: string | undefined;
-    recognitions: string | undefined;
-    notes: string | undefined;
-    typeId: number | undefined;
-  }
-
   const initialValues: DesignFormValues = {
     id: design?.id,
     name: design?.name,
@@ -82,41 +82,11 @@ const DesignForm: React.FC<DesignFormProps> = ({
     typeId: design?.typeId ?? undefined,
   };
 
-  const mapValues = (values: DesignFormValues): Design => {
-    return {
-      id: values.id,
-      name: values.name,
-      image: values.image ?? null,
-      imageFile: values.imageFile ?? null,
-      imageReference: values.imageReference ?? null,
-      model: values.model ?? null,
-      alsoKnownAs: values.alsoKnownAs ?? null,
-      alsoKnownAsOriginCountry: values.alsoKnownAsOriginCountry ?? null,
-      originCountry: values.originCountry ?? null,
-      yearFrom: values.yearFrom ?? null,
-      yearTo: values.yearTo ?? null,
-      designerId: values.designerId ?? null,
-      manufacturerId: values.manufacturerId ?? null,
-      isFeatured: values.isFeatured ?? null,
-      manufacturerUrl: values.manufacturerUrl ?? null,
-      manufacturerDescription: values.manufacturerDescription ?? null,
-      wikipediaUrl: values.wikipediaUrl ?? null,
-      recognitions: values.recognitions ?? null,
-      notes: values.notes ?? null,
-      typeId: values.typeId ?? null,
-    };
-  };
-
-  const submitHandler = (values: DesignFormValues) => {
-    const design = mapValues(values);
-    onSubmit(design);
-  };
-
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={schema}
-      onSubmit={(values: DesignFormValues) => submitHandler(values)}
+      onSubmit={(values: DesignFormValues) => onSubmit(values)}
     >
       {({ errors, touched, setFieldValue }) => (
         <Form>

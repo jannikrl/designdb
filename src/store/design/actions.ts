@@ -15,6 +15,7 @@ import {
   RESET,
   DesignActionTypes,
 } from "./types";
+import { DesignFormValues } from "../../components/Forms/DesignForm/DesignForm";
 
 export const fetchDesign = (id: number): ThunkAction => {
   return async (dispatch) => {
@@ -28,7 +29,7 @@ export const fetchDesign = (id: number): ThunkAction => {
   };
 };
 
-export const updateDesign = (values: Design): ThunkAction => {
+export const updateDesign = (values: DesignFormValues): ThunkAction => {
   return async (dispatch) => {
     dispatch(updateDesignStart());
     try {
@@ -44,7 +45,7 @@ export const updateDesign = (values: Design): ThunkAction => {
   };
 };
 
-export const createDesign = (values: Design): ThunkAction => {
+export const createDesign = (values: DesignFormValues): ThunkAction => {
   return async (dispatch) => {
     dispatch(createDesignStart());
     try {

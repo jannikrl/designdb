@@ -2,6 +2,7 @@ import { axios } from "./baseService";
 import { keysToCamelCase, keysToSnakeCase } from "../utils/utils";
 import { Design } from "../store/design/types";
 import { FilterOptions } from "../store/designs/types";
+import { DesignFormValues } from "../components/Forms/DesignForm/DesignForm";
 
 export const fetchDesign = async (id: number) => {
   const design = await axios
@@ -14,7 +15,7 @@ export const fetchDesign = async (id: number) => {
   return design;
 };
 
-export const createDesign = async (values: Design) => {
+export const createDesign = async (values: DesignFormValues) => {
   const design = await axios
     .post("/designs", keysToSnakeCase(values))
     .then((response) => keysToCamelCase(response.data) as Design)
@@ -25,7 +26,7 @@ export const createDesign = async (values: Design) => {
   return design;
 };
 
-export const updateDesign = async (values: Design) => {
+export const updateDesign = async (values: DesignFormValues) => {
   const design = await axios
     .put(`/designs/${values.id}`, keysToSnakeCase(values))
     .then((response) => keysToCamelCase(response.data) as Design)
