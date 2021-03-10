@@ -68,6 +68,7 @@ const reducer = (
     case types.RESET:
       return initialState;
     default:
+      console.log("3");
       return state;
   }
 };

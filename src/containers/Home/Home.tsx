@@ -6,7 +6,7 @@ import * as designsActions from "../../store/designs/actions";
 import * as designsSelectors from "../../store/designs/selectors";
 import { RootState } from "../../store/types";
 
-const Designs: React.FC = () => {
+const Home: React.FC = () => {
   const designs = useSelector((state: RootState) => designsSelectors.getDesigns(state));
   const isLoading = useSelector((state: RootState) => designsSelectors.isLoading(state));
 
@@ -23,7 +23,7 @@ const Designs: React.FC = () => {
 
   const isEmpty = !designs.length
   const emptyMessage = isEmpty && !isLoading && <p>No designs</p>;
-  const loadingMessage = isEmpty && isLoading && <p>Loading</p>;
+  const loadingMessage = isEmpty && isLoading && <p>Loading...</p>;
 
   return (
     <div>
@@ -35,4 +35,4 @@ const Designs: React.FC = () => {
   );
 };
 
-export default Designs;
+export default Home;
