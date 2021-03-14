@@ -17,25 +17,25 @@ const reducer = (
   action: types.DesignsActionTypes
 ): types.DesignsState => {
   switch (action.type) {
-    case types.FETCH_DESIGNS_START:
+    case types.HOME_GRID_FETCH_DESIGNS_START:
       return {
         ...state,
         loading: true,
         error: "",
       };
-    case types.FETCH_DESIGNS_SUCCESS:
+    case types.HOME_GRID_FETCH_DESIGNS_SUCCESS:
       return {
         ...state,
         designs: action.designs,
         loading: false,
       };
-    case types.FETCH_DESIGNS_FAILURE:
+    case types.HOME_GRID_FETCH_DESIGNS_FAILURE:
       return {
         ...state,
         error: action.error,
         loading: false,
       };
-    case types.SHOW_FEATURED:
+    case types.HOME_GRID_SHOW_FEATURED:
       return {
         ...state,
         filterOptions: {
@@ -43,7 +43,7 @@ const reducer = (
           showFeatured: action.value,
         },
       };
-    case types.SELECT_DESIGNER:
+    case types.HOME_GRID_SELECT_DESIGNER:
       return {
         ...state,
         filterOptions: {
@@ -51,7 +51,7 @@ const reducer = (
           designer: action.id,
         },
       };
-    case types.SELECT_MANUFACTURER:
+    case types.HOME_GRID_SELECT_MANUFACTURER:
       return {
         ...state,
         filterOptions: {
@@ -59,19 +59,12 @@ const reducer = (
           manufacturer: action.id,
         },
       };
-    case types.SELECT_DESIGN_TYPE:
+    case types.HOME_GRID_SELECT_DESIGN_TYPE:
       return {
         ...state,
         filterOptions: {
           ...state.filterOptions,
           type: action.id,
-        },
-      };
-    case types.SET_FILTER_OPTIONS:
-      return {
-        ...state,
-        filterOptions: {
-          ...action.filterOptions,
         },
       };
     default:

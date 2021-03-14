@@ -1,19 +1,25 @@
 import React, { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import * as homeGridActions from "../../store/homeGrid/actions";
+import * as homeGridSelectors from "../../store/homeGrid/selectors";
+import { RootState } from "../../store/types";
+import { Link } from "react-router-dom";
 import Controls from "./Controls/Controls";
 import Grid from "../../components/UI/Grid/Grid";
-import { useDispatch, useSelector } from "react-redux";
-import * as designsActions from "../../store/designs/actions";
-import * as designsSelectors from "../../store/designs/selectors";
-import { RootState } from "../../store/types";
+import GridItem from "../../components/UI/Grid/GridItem/GridItem";
 
 const Home: React.FC = () => {
-  const designs = useSelector((state: RootState) => designsSelectors.getDesigns(state));
-  const isLoading = useSelector((state: RootState) => designsSelectors.isLoading(state));
+  const designs = useSelector((state: RootState) =>
+    homeGridSelectors.getDesigns(state)
+  );
+  const isLoading = useSelector((state: RootState) =>
+    homeGridSelectors.isLoading(state)
+  );
 
   const dispatch = useDispatch();
 
   const fetchDesigns = useCallback(
-    () => dispatch(designsActions.fetchDesigns()),
+    () => dispatch(homeGridActions.fetchDesigns()),
     [dispatch]
   );
 
@@ -21,7 +27,7 @@ const Home: React.FC = () => {
     fetchDesigns();
   }, [fetchDesigns]);
 
-  const isEmpty = !designs.length
+  const isEmpty = !designs.length;
   const emptyMessage = isEmpty && !isLoading && <p>No designs</p>;
   const loadingMessage = isEmpty && isLoading && <p>Loading...</p>;
 
@@ -30,7 +36,20 @@ const Home: React.FC = () => {
       <Controls />
       {emptyMessage}
       {loadingMessage}
-      <Grid data={designs} />
+      <Grid>
+        {designs.map((design) => (
+          <li key={design.id}>
+            <Link to={"/design/" + design.id}>
+              <GridItem>
+                <img
+                  src={process.env.REACT_APP_IMAGE_URL + "/" + design.image}
+                  alt=""
+                />
+              </GridItem>
+            </Link>
+          </li>
+        ))}
+      </Grid>
     </div>
   );
 };

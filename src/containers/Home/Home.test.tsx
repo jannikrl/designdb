@@ -22,7 +22,7 @@ describe("<Home />", () => {
   });
 
   it("should render loading text", () => {
-    store = { designs: { designs: [], loading: true } };
+    store = { homeGrid: { designs: [], loading: true } };
 
     const wrapper = shallow(<Home />);
 
@@ -30,7 +30,7 @@ describe("<Home />", () => {
   });
 
   it("should render empty state text", () => {
-    store = { designs: { designs: [], loading: false } };
+    store = { homeGrid: { designs: [], loading: false } };
 
     const wrapper = shallow(<Home />);
 
@@ -38,7 +38,7 @@ describe("<Home />", () => {
   });
 
   it("should render no placeholder texts", () => {
-    store = { designs: { designs: [{}], loading: false } };
+    store = { homeGrid: { designs: [{id: 0}], loading: false } };
 
     const wrapper = shallow(<Home />);
 
