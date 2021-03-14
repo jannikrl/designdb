@@ -18,7 +18,7 @@ const Grid: React.FC<GridProps> = ({ data }) => {
         columns={4}
         columnWidth={180}
         gutterWidth={12}
-        gutterHeight={12}
+        gutterHeight={42}
         duration={800}
       >
         {data.map((item) => (
