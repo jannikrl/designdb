@@ -2,8 +2,8 @@ import React, { useCallback, useEffect } from "react";
 import Toggle from "../../../components/UI/Toggle";
 import Dropdown from "../../../components/UI/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
-import * as designsActions from "../../../store/designs/actions";
-import * as designsSelectors from "../../../store/designs/selectors";
+import * as homeGridActions from "../../../store/homeGrid/actions";
+import * as homeGridSelectors from "../../../store/homeGrid/selectors";
 import * as designTypesActions from "../../../store/designTypes/actions";
 import * as designTypesSelectors from "../../../store/designTypes/selectors";
 import * as designersActions from "../../../store/designers/actions";
@@ -14,16 +14,16 @@ import { RootState } from "../../../store/types";
 
 const Controls = () => {
   const showFeatured = useSelector((state: RootState) =>
-    designsSelectors.getShowFeatured(state)
+    homeGridSelectors.getShowFeatured(state)
   );
   const selectedDesigner = useSelector((state: RootState) =>
-    designsSelectors.getSelectedDesigner(state)
+    homeGridSelectors.getSelectedDesigner(state)
   );
   const selectedManufacturer = useSelector((state: RootState) =>
-    designsSelectors.getSelectedManufacturer(state)
+    homeGridSelectors.getSelectedManufacturer(state)
   );
   const selectedDesignType = useSelector((state: RootState) =>
-    designsSelectors.getSelectedDesignType(state)
+    homeGridSelectors.getSelectedDesignType(state)
   );
   const designers = useSelector((state: RootState) =>
     designersSelectors.getDesigners(state)
@@ -38,13 +38,13 @@ const Controls = () => {
   const dispatch = useDispatch();
 
   const updateShowFeatured = (value: boolean) =>
-    dispatch(designsActions.showFeatured(value));
+    dispatch(homeGridActions.showFeatured(value));
   const selectDesigner = (id: string) =>
-    dispatch(designsActions.selectDesigner(+id));
+    dispatch(homeGridActions.selectDesigner(+id));
   const selectManufacturer = (id: string) =>
-    dispatch(designsActions.selectManufacturer(+id));
+    dispatch(homeGridActions.selectManufacturer(+id));
   const selectDesignType = (id: string) =>
-    dispatch(designsActions.selectDesignType(+id));
+    dispatch(homeGridActions.selectDesignType(+id));
   const fetchDesigners = useCallback(
     () => dispatch(designersActions.fetchDesigners()),
     [dispatch]

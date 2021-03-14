@@ -24,7 +24,7 @@ const Info: React.FC<InfoProps> = ({ design }) => {
   } = design ?? {};
 
   return (
-    <>
+    <div className={styles.info}>
       {model && (
         <p>
           <strong>Model:</strong> {model}
@@ -79,11 +79,13 @@ const Info: React.FC<InfoProps> = ({ design }) => {
       )}
       {manufacturerUrl && (
         <p>
-          <a href={manufacturerUrl}>Learn more on manufacturer website</a>
+          <a href={manufacturerUrl} target="_blank" rel="noreferrer">
+            Learn more on manufacturer website
+          </a>
         </p>
       )}
       {wikipediaUrl && <a href={wikipediaUrl}>Learn more on Wikipedia</a>}
-    </>
+    </div>
   );
 };
 

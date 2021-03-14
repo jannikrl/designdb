@@ -10,7 +10,7 @@ exports[`renders correctly 1`] = `
     <Link
       to="/"
     >
-      designdb
+      Desssign
     </Link>
   </h1>
   <nav>
