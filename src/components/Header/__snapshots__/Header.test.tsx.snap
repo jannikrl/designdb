@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<header
+  className="header"
+>
+  <h1
+    className="logo"
+  >
+    <Link
+      to="/"
+    >
+      designdb
+    </Link>
+  </h1>
+  <nav>
+    <div>
+      <Link
+        to="/design/create"
+      >
+        New design
+      </Link>
+      <Link
+        to="/designer/create"
+      >
+        New designer
+      </Link>
+      <Link
+        to="/manufacturer/create"
+      >
+        New manufacturer
+      </Link>
+      <Link
+        to="/logout"
+      >
+        Logout
+      </Link>
+    </div>
+  </nav>
+</header>
+`;
