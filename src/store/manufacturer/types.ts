@@ -12,6 +12,8 @@ export interface Manufacturer {
   id: number;
   name: string;
   image: string;
+  description: string;
+  websiteUrl: string;
 }
 
 export interface ManufacturerState {

@@ -13,6 +13,8 @@ export interface ManufacturerFormValues {
   name: string;
   image: string;
   imageFile?: File;
+  description: string;
+  websiteUrl: string;
 }
 
 export interface ManufacturerFromProps {
@@ -28,6 +30,8 @@ const ManufacturerForm: React.FC<ManufacturerFromProps> = ({
     name: manufacturer?.name ?? "",
     image: manufacturer?.image ?? "",
     imageFile: undefined,
+    description: manufacturer?.description ?? "",
+    websiteUrl: manufacturer?.websiteUrl ?? "",
   };
 
   return (
@@ -50,6 +54,22 @@ const ManufacturerForm: React.FC<ManufacturerFromProps> = ({
               setFieldValue("imageFile", imageFile);
             }}
           />
+
+          <div>
+            <label htmlFor="description">Description</label>
+            <Field name="description" type="text" component="textarea" id="description"></Field>
+            {errors.description && touched.description ? (
+              <i>{errors.description}</i>
+            ) : null}
+          </div>
+
+          <div>
+            <label htmlFor="websiteUrl">Website</label>
+            <Field name="websiteUrl" type="text" id="websiteUrl"></Field>
+            {errors.websiteUrl && touched.websiteUrl ? (
+              <i>{errors.websiteUrl}</i>
+            ) : null}
+          </div>
 
           <div>
             <button type="submit">Submit</button>

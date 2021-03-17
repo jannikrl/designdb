@@ -48,7 +48,7 @@ const Manufacturer: React.FC = () => {
     });
   }, [dispatch, id, fetchDesigns]);
 
-  const { name, image } = manufacturer || {};
+  const { name, image, description, websiteUrl } = manufacturer || {};
 
   const didLoadManufacturer = manufacturer && manufacturer.id === +id;
 
@@ -70,6 +70,16 @@ const Manufacturer: React.FC = () => {
               className={styles.manufacturerImage}
               alt={name}
             />
+          )}
+
+          {description && <p>{description}</p>}
+
+          {websiteUrl && (
+            <p>
+              <a href={websiteUrl} target="_blank" rel="noreferrer">
+                Website
+              </a>
+            </p>
           )}
 
           {!isLoading && (

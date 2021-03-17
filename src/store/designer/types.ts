@@ -1,3 +1,5 @@
+import { Manufacturer } from "../manufacturer/types";
+
 export const FETCH_DESIGNER_START = "FETCH_DESIGNER_START";
 export const FETCH_DESIGNER_SUCCESS = "FETCH_DESIGNER_SUCCESS";
 export const FETCH_DESIGNER_FAILURE = "FETCH_DESIGNER_FAILURE";
@@ -18,6 +20,10 @@ export interface Designer {
   diedCity: string | null;
   bornCountry: string | null;
   diedCountry: string | null;
+  description: string | null;
+  descriptionReference: string | null;
+  descriptionManufacturerId: number | null;
+  descriptionManufacturer: Manufacturer | null;
 }
 
 export interface DesignerState {

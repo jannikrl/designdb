@@ -58,6 +58,9 @@ const Designer: React.FC = () => {
     diedYear,
     diedCity,
     diedCountry,
+    description,
+    descriptionReference,
+    descriptionManufacturer,
   } = designer ?? {};
 
   const didLoadDesigner = designer && designer.id === +id;
@@ -93,6 +96,22 @@ const Designer: React.FC = () => {
               {diedCity && ", " + diedCity}
               {diedCountry && ", " + diedCountry}
             </p>
+          )}
+
+          {description && descriptionReference && descriptionManufacturer && (
+            <div>
+              <p className={styles.multiLine}>
+                <strong>Description from {descriptionManufacturer.name}</strong>
+                <br />
+                {description}
+              </p>
+
+              <p>
+                <a href={descriptionReference} target="_blank" rel="noreferrer">
+                  Source
+                </a>
+              </p>
+            </div>
           )}
 
           {didLoadDesigner && !isLoading && (

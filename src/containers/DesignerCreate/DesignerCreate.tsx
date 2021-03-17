@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as designerSelectors from "../../store/designer/selectors";
 import * as designerActions from "../../store/designer/actions";
+import * as manufacturersSelectors from "../../store/manufacturers/selectors";
+import * as manufacturersActions from "../../store/manufacturers/actions";
 import DesignerForm, {
   DesignerFormValues,
 } from "../../components/Forms/DesignerForm/DesignerForm";
@@ -19,8 +21,20 @@ const DesignerCreate = () => {
   const designerIsLoading = useSelector((state: RootState) =>
     designerSelectors.isLoading(state)
   );
+  const manufacturers = useSelector((state: RootState) =>
+    manufacturersSelectors.getManufacturers(state)
+  );
 
   const dispatch = useDispatch();
+
+  const fetchManufacturers = useCallback(
+    () => dispatch(manufacturersActions.fetchManufacturers()),
+    [dispatch]
+  );
+
+  useEffect(() => {
+    fetchManufacturers();
+  }, [fetchManufacturers]);
 
   const createDesigner = (values: DesignerFormValues) =>
     dispatch(designerActions.createDesigner(values));
@@ -31,7 +45,9 @@ const DesignerCreate = () => {
   };
 
   const isSuccess = didSubmit && !designerIsLoading && !designerError;
-  const redirect = isSuccess && designer && <Redirect to={`/designer/${designer.id}`} />;
+  const redirect = isSuccess && designer && (
+    <Redirect to={`/designer/${designer.id}`} />
+  );
   const errorMessage = didSubmit && designerError && (
     <p>Something went wrong, try again</p>
   );
@@ -40,7 +56,10 @@ const DesignerCreate = () => {
     <div>
       {redirect}
       {errorMessage}
-      <DesignerForm onSubmit={(values) => submitHandler(values)} />
+      <DesignerForm
+        onSubmit={(values) => submitHandler(values)}
+        manufacturers={manufacturers}
+      />
     </div>
   );
 };

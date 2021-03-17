@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useParams } from "react-router-dom";
 import * as designerSelectors from "../../store/designer/selectors";
 import * as designerActions from "../../store/designer/actions";
+import * as manufacturersSelectors from "../../store/manufacturers/selectors";
+import * as manufacturersActions from "../../store/manufacturers/actions";
 import DesignerForm, {
   DesignerFormValues,
 } from "../../components/Forms/DesignerForm/DesignerForm";
@@ -23,6 +25,9 @@ const DesignerEdit = () => {
   const designerIsLoading = useSelector((state: RootState) =>
     designerSelectors.isLoading(state)
   );
+  const manufacturers = useSelector((state: RootState) =>
+    manufacturersSelectors.getManufacturers(state)
+  );
 
   const dispatch = useDispatch();
 
@@ -33,12 +38,18 @@ const DesignerEdit = () => {
     [dispatch, id]
   );
 
+  const fetchManufacturers = useCallback(
+    () => dispatch(manufacturersActions.fetchManufacturers()),
+    [dispatch]
+  );
+
   const updateDesigner = (values: DesignerFormValues) =>
     dispatch(designerActions.updateDesigner(values));
 
   useEffect(() => {
     fetchDesigner();
-  }, [fetchDesigner]);
+    fetchManufacturers();
+  }, [fetchDesigner, fetchManufacturers]);
 
   const submitHandler = (values: DesignerFormValues) => {
     values.id = +id;
@@ -61,6 +72,7 @@ const DesignerEdit = () => {
       {didFetchDesigner && (
         <DesignerForm
           designer={designer}
+          manufacturers={manufacturers}
           onSubmit={(values) => submitHandler(values)}
         />
       )}
