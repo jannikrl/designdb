@@ -89,7 +89,9 @@ const App: React.FC = () => {
           <Route path="/">
             <Home />
           </Route>
-          <Redirect to="/" />
+          <Route>
+            <Home />
+          </Route>
         </Switch>
       </Suspense>
     </Router>
