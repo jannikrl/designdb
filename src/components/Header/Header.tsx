@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
   return (
     <header className={styles.header}>
       <h1 className={styles.logo}>
-        <Link to="/">Desssign</Link>
+        <Link to="/">DesignDb</Link>
       </h1>
       <nav>
         {loginLink}
